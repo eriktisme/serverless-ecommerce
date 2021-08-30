@@ -50,7 +50,7 @@ export default defineComponent({
     const submittingConfirmForm = ref(false)
 
     const form = reactive({
-      password: {
+      confirmForm: {
         code: '',
       },
     })
@@ -60,7 +60,7 @@ export default defineComponent({
     async function confirm() {
       try {
         submittingConfirmForm.value = true
-        await Auth.confirmSignUp(query.email as string, form.password.code, {
+        await Auth.confirmSignUp(query.email as string, form.confirmForm.code, {
           forceAliasCreation: true,
         })
       } catch (e) {
