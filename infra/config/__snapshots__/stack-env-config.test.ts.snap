@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stack environment configuration returns int stack configuration given context=dev 1`] = `
+Object {
+  "env": Object {
+    "account": "096007086684",
+    "region": "eu-west-1",
+  },
+  "project": "serverless-ecommerce",
+  "stage": "dev",
+}
+`;
+
+exports[`Stack environment configuration returns int stack configuration given context=int 1`] = `
+Object {
+  "env": Object {
+    "account": "096007086684",
+    "region": "eu-west-1",
+  },
+  "project": "serverless-ecommerce",
+  "stage": "int",
+}
+`;
+
+exports[`Stack environment configuration returns prod stack configuration given context=prod 1`] = `
+Object {
+  "env": Object {
+    "account": "096007086684",
+    "region": "eu-west-1",
+  },
+  "project": "serverless-ecommerce",
+  "stage": "prod",
+}
+`;
