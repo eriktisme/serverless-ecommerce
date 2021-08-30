@@ -1,0 +1,20 @@
+{
+  "name": "serverless-ecommerce",
+  "private": true,
+  "workspaces": [
+    "services/*",
+    "web"
+  ],
+  "scripts": {
+    "format": "prettier --write --check ."
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@types/jest": "^26.0.24",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.4"
+  }
+}
