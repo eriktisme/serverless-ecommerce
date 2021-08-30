@@ -1,0 +1,52 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "buildtest": "tsc --noEmit",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:e2e:ui": "cypress open",
+    "test:e2e": "cypress run",
+    "test:unit": "echo 'unit test'"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/vue-fontawesome": "^3.0.0-4",
+    "@tailwindcss/forms": "^0.3.3",
+    "aws-amplify": "^4.0.2",
+    "core-js": "^3.6.5",
+    "debounce": "^1.2.1",
+    "serverless": "^2.43.0",
+    "vue": "^3.2.1",
+    "vue-router": "^4.0.10",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/vue": "^5.8.2",
+    "@types/debounce": "^1.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "autoprefixer": "^9",
+    "babel-eslint": "^10.1.0",
+    "cypress": "^8.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0",
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "typescript": "~4.1.5"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "name": "@core-ui/fields",
+  "module": "index.ts",
+  "sideEffects": false
+}
