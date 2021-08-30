@@ -1,5 +1,7 @@
 # Users Service
 
+![Users architecture diagram](img/diagram.png)
+
 ## API
 
 This service does not define any API.
