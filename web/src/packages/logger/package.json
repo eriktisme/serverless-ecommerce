@@ -1,0 +1,5 @@
+{
+  "name": "@packages/logger",
+  "main": "index.ts",
+  "sideEffects": false
+}

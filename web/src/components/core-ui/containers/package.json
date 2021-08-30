@@ -1,0 +1,5 @@
+{
+  "name": "@core-ui/containers",
+  "module": "index.ts",
+  "sideEffects": false
+}
