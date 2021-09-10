@@ -82,6 +82,12 @@ export default defineComponent({
           form.loginForm.password
         )
 
+        const groups = user.getSignInUserSession().getIdToken().payload['cognito:groups'] ?? []
+
+        if (!groups.includes('admin')) {
+          throw new Error('Entered credentials not found')
+        }
+
         await userStore.commit('user', user)
 
         if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
