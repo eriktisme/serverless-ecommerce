@@ -1,0 +1,9 @@
+{
+  "baseUrl": "http://localhost:8080",
+  "pluginsFile": "tests/e2e/plugins/index.ts",
+  "retries": {
+    "runMode": 2,
+    "openMode": 1
+  },
+  "experimentalStudio": true
+}

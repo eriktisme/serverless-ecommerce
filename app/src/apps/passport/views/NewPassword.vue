@@ -7,15 +7,13 @@
             {{ error }}
           </template>
           <InputGroup
-            type="text"
-            label="Code"
-            v-model="confirmForm.code"
+            type="password"
+            label="New Password"
+            v-model="newPassword.password"
             :required="true"
-            ref="code"
+            ref="password"
           />
-          <Button :busy="submittingConfirmForm" :block="true" type="submit"
-            >Confirm</Button
-          >
+          <Button :busy="busy" :block="true" type="submit">Confirm</Button>
         </CardBody>
       </form>
     </Card>
@@ -27,59 +25,63 @@ import { Button } from '@/components/core-ui/buttons'
 import { Card, CardBody } from '@/components/core-ui/containers'
 import { InputGroup } from '@/components/core-ui/fields'
 import { useLogger } from '@/packages/logger'
+import { useUserStore } from '@/stores/user'
 import { Auth } from 'aws-amplify'
 import { defineComponent, reactive, ref, toRefs } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import WelcomePage from '../components/WelcomePage.vue'
 
 export default defineComponent({
   components: { Card, CardBody, Button, WelcomePage, InputGroup },
   mounted() {
     this.$nextTick(() => {
-      ;(this.$refs.code as any).$el.focus()
+      ;(this.$refs.password as any).$el.focus()
     })
   },
   setup() {
     const { log } = useLogger()
 
     log({
-      message: 'Confirm page has been loaded.',
+      message: 'New password page has been loaded.',
     })
 
     const error = ref('')
-    const submittingConfirmForm = ref(false)
+    const busy = ref(false)
 
     const form = reactive({
-      confirmForm: {
-        code: '',
+      newPassword: {
+        password: '',
       },
     })
 
-    const { query } = useRoute()
+    const { push } = useRouter()
+
+    const userStore = useUserStore()
 
     async function confirm() {
       try {
-        submittingConfirmForm.value = true
-        await Auth.confirmSignUp(query.email as string, form.confirmForm.code, {
-          forceAliasCreation: true,
+        busy.value = true
+        await Auth.completeNewPassword(
+          userStore.state.user,
+          form.newPassword.password
+        )
+
+        await push({
+          name: 'dashboard',
         })
       } catch (e) {
         if (e) {
-          if (e.code === 'NotAuthorizedException') {
-            error.value = 'Account is already confirmed'
-          } else {
-            error.value = e.message
-          }
+          error.value = e.message
         }
       } finally {
-        submittingConfirmForm.value = false
+        busy.value = false
       }
     }
 
     return {
       ...toRefs(form),
       error,
-      submittingConfirmForm,
+      busy,
       confirm,
     }
   },
