@@ -1,0 +1,53 @@
+name: tests
+
+on:
+  workflow_run:
+    workflows: ['audit']
+    branches: ['*']
+    types:
+      - completed
+      - requested
+
+env:
+  NODE_VERSION: lts/fermium
+
+jobs:
+  infra:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    defaults:
+      run:
+        working-directory: infra
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ./.github/actions/build-and-install
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Run tests
+        run: yarn test
+
+  services:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    strategy:
+      matrix:
+        services: [users]
+    defaults:
+      run:
+        working-directory: services
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Checkout service
+        run:  cd ${{ matrix.services }}
+
+      - uses: ./.github/actions/build-and-install
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Run tests
+        run: yarn test
