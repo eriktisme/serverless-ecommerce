@@ -1,0 +1,5 @@
+{
+  "name": "@core-ui/buttons",
+  "module": "index.ts",
+  "sideEffects": false
+}
