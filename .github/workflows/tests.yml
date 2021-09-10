@@ -7,6 +7,7 @@ on:
 
 env:
   NODE_VERSION: lts/fermium
+  CI: true
 
 jobs:
   infra:
@@ -19,9 +20,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: ./.github/actions/build-and-install
+      - uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ inputs.node-version }}
+          cache: 'yarn'
+
+      - name: Install Dependencies
+        run: yarn install --no-progress --silent
 
       - name: Run tests
         run: yarn test
@@ -34,17 +39,18 @@ jobs:
         services: [users]
     defaults:
       run:
-        working-directory: services
+        working-directory: services/${{ matrix.services }}
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Checkout service
-        run:  cd ${{ matrix.services }}
-
-      - uses: ./.github/actions/build-and-install
+      - uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ inputs.node-version }}
+          cache: 'yarn'
+
+      - name: Install Dependencies
+        run: yarn install --no-progress --silent
 
       - name: Run tests
         run: yarn test
