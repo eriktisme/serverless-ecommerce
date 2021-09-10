@@ -3,10 +3,7 @@ name: tests
 on:
   workflow_run:
     workflows: ['audit']
-    branches: ['*']
-    types:
-      - completed
-      - requested
+    types: ['completed']
 
 env:
   NODE_VERSION: lts/fermium
