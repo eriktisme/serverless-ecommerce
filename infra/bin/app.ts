@@ -17,6 +17,8 @@ switch (stackConfig.stage) {
   case 'int': {
     stackBuilder.addServiceUsersStack()
     stackBuilder.addCorePlatformStack()
+    stackBuilder.addServiceProductsStack()
+    stackBuilder.addServiceFrontendApiStack()
 
     break
   }

@@ -1,6 +1,8 @@
 import { App, Tags } from '@aws-cdk/core'
 import { StackConfiguration } from '../config'
 import { CorePlatformStack } from '../lib/core-platform'
+import { ServiceFrontendApiStack } from '../lib/service-frontend-api'
+import { ServiceProductsStack } from '../lib/service-products'
 import { ServiceUsersStack } from '../lib/service-users'
 
 export class StackBuilder {
@@ -49,6 +51,57 @@ export class StackBuilder {
         stackName,
         description:
           'Stack to manage the user service (e.g. user pool, user pool client) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': 'service',
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', 'service')
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
+
+  addServiceProductsStack(): ServiceProductsStack {
+    const envType = this.stackConfig.stage
+    const stackName = `${envType}-service-products`
+
+    const stack = new ServiceProductsStack(
+      this.app,
+      stackName,
+      {
+        stackName,
+        description:
+          'Stack to manage the products service (e.g. dynamodb table) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': 'service',
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', 'service')
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
+
+  addServiceFrontendApiStack(): ServiceFrontendApiStack {
+    const envType = this.stackConfig.stage
+    const stackName = `${envType}-service-frontend-api`
+
+    const stack = new ServiceFrontendApiStack(
+      this.app,
+      stackName,
+      {
+        stackName,
+        description: 'Stack to manage the frontend api resources.',
         env: this.stackConfig.env,
         tags: {
           'resource-type': 'service',
