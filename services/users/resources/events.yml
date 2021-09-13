@@ -9,7 +9,7 @@ paths: {}
 components:
   schemas:
     UserCreated:
-      x-amazon-events-source: gym-training-planner.users
+      x-amazon-events-source: serverless-ecommerce.users
       x-amazon-events-detail-type: UserCreated
       description: Event emitted when a new user is created.
       allOf:
