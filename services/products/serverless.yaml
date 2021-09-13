@@ -1,0 +1,44 @@
+# Serverless.yml Reference
+# https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
+
+frameworkVersion: '2'
+service: ${self:custom.service.name}
+variablesResolutionMode: 20210326
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-iam-roles-per-function
+
+package:
+  individually: true
+
+provider:
+  lambdaHashingVersion: 20201221
+  name: aws
+  runtime: nodejs14.x
+  region: ${opt:region, 'eu-west-1'}
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  logRetentionInDays: 7
+  versionFunctions: true
+  tags:
+    environment: ${self:provider.stage}
+    service: ${self:custom.service.name}
+    project: ${self:custom.project}
+  tracing:
+    apiGateway: false
+    lambda: true
+  deploymentBucket:
+    name: ${self:provider.stage}-service-${self:custom.service.name}-deployment
+    serverSideEncryption: AES256
+  environment:
+    EVENT_BUS_NAME: !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/platform/event-bus/name}'
+    PROJECT: ${self:custom.project}
+
+custom:
+  project: serverless-ecommerce
+  service:
+    name: products
+    tags: ${self:custom.service.name}
+
+#functions:
