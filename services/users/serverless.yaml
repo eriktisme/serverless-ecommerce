@@ -29,7 +29,7 @@ provider:
     apiGateway: false
     lambda: true
   deploymentBucket:
-    name: ${self:provider.stage}-service-users-deployment
+    name: ${self:provider.stage}-service-${self:custom.service.name}-deployment
     serverSideEncryption: AES256
   environment:
     EVENT_BUS_NAME: !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/platform/event-bus/name}'
