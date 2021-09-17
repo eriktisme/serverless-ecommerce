@@ -2,3 +2,8 @@
 .github
 **/coverage/*
 **/cdk.out/*
+**/cdk_out/*
+**/dist/*
+*.graphql
+*.yaml
+*.yml
