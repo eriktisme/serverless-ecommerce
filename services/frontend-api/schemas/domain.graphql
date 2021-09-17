@@ -1,0 +1,37 @@
+type Response {
+  success: Boolean!
+}
+
+enum CategoryStatus {
+  ACTIVE
+  DRAFT
+}
+
+type ProductCategory {
+  categoryId: ID!
+  name: String!
+  status: CategoryStatus!
+}
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT
+}
+
+type Product {
+  productId: ID!
+  name: String!
+  price: Int!
+  category: ProductCategory
+  status: ProductStatus!
+  tags: [String]
+  pictures: [String]
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  deletedAt: AWSDateTime
+}
+
+type PaginatedProducts {
+  items: [Product!]!
+  nextToken: String
+}

@@ -1,0 +1,107 @@
+# Serverless.yml Reference
+# https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
+
+frameworkVersion: '2'
+service: ${self:custom.service.name}
+
+plugins:
+  - serverless-appsync-plugin
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ${opt:region, 'eu-west-1'}
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  logRetentionInDays: 7
+  versionFunctions: true
+  tags:
+    environment: ${self:provider.stage}
+    service: ${self:custom.service.name}
+    project: ${self:custom.project}
+  tracing:
+    apiGateway: true
+    lambda: true
+  deploymentBucket:
+    name: ${self:provider.stage}-service-${self:custom.service.name}-deployment
+    serverSideEncryption: AES256
+
+custom:
+  project: serverless-ecommerce
+  service:
+    name: frontend-api
+    tags: ${self:custom.service.name}
+
+  appSync:
+    #    - name: ${self:provider.stage}-${self:custom.project}-public-api
+    #      allowHashDescription: true
+    #      authenticationType: AMAZON_COGNITO_USER_POOLS
+    #      xrayEnabled: true
+    #      userPoolConfig:
+    #        awsRegion: ${self:provider.region}
+    #        defaultAction: ALLOW
+    #        userPoolId: !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/users/user-pool/id}'
+    #      schema:
+    #        - schemas/domain.graphql
+    #        - schemas/public.graphql
+    #      dataSources:
+    #        #
+    #      mappingTemplatesLocation: mapping-templates
+    #      mappingTemplates:
+    #        #
+
+    - name: ${self:provider.stage}-${self:custom.project}-private-api
+      authenticationType: AMAZON_COGNITO_USER_POOLS
+      xrayEnabled: false
+
+      #      logConfig:
+      #        loggingRoleArn: !GetAtt []
+      #        level: ERROR
+      #        excludeVerboseContent: false
+
+      userPoolConfig:
+        awsRegion: ${self:provider.region}
+        defaultAction: ALLOW
+        userPoolId: !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/users/user-pool/id}'
+
+      schema:
+        - schemas/shared.graphql
+        - schemas/domain.graphql
+        - schemas/private.graphql
+
+      functionConfigurations:
+
+      mappingTemplates:
+        - field: getProducts
+          dataSource: products
+          type: Query
+        - field: category
+          dataSource: products
+          type: Product
+        - field: getProduct
+          dataSource: products
+          type: Query
+        - field: createProduct
+          dataSource: products
+          type: Mutation
+
+      dataSources:
+        - type: AMAZON_DYNAMODB
+          name: products
+          config:
+            tableName: !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/products/table/name}'
+            iamRoleStatements:
+              - Effect: Allow
+                Action:
+                  - 'dynamodb:Query'
+                  - 'dynamodb:BatchWriteItem'
+                  - 'dynamodb:GetItem'
+                  - 'dynamodb:DeleteItem'
+                  - 'dynamodb:PutItem'
+                  - 'dynamodb:UpdateItem'
+                Resource:
+                  - !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ssm:/${self:custom.project}/${self:provider.stage}/products/table/name}'
+                  - !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/products/table/arn}'

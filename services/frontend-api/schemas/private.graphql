@@ -1,0 +1,24 @@
+input ProductInput {
+  name: String!
+  status: ProductStatus!
+  price: Int!
+  description: String!
+}
+
+type Query {
+  getProducts(nextToken: String): PaginatedProducts!
+    @aws_cognito_user_pools(cognito_groups: ["admin"])
+
+  getProduct(productId: ID!): Product
+    @aws_cognito_user_pools(cognito_groups: ["admin"])
+}
+
+type Mutation {
+  createProduct(input: ProductInput!): Response!
+    @aws_cognito_user_pools(cognito_groups: ["admin"])
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
