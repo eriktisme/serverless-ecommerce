@@ -174,30 +174,3 @@ describe('Sends Events', () => {
     AWSMock.restore('EventBridge')
   })
 })
-
-//
-// const output = {
-//   Source: 'jest.users',
-//   Resources: [input['userName']],
-//   DetailType: 'UserCreated',
-//   Detail: JSON.stringify({
-//     userId: input['userName'],
-//     email: input['request']['userAttributes']['email'],
-//   }),
-//   EventBusName: undefined,
-// }
-//
-// it('sends events', async () => {
-//   const event = output
-//
-//   AWSMock.setSDKInstance(AWS)
-//   AWSMock.mock('EventBridge', 'putEvents', (params, callback: Function) => {
-//     callback(null, expectedParams)
-//   })
-//
-//   const expectedParams = { Entries: [event] }
-//
-//   expect(await sendEvents(eventBridge, [event])).toStrictEqual(expectedParams)
-//
-//   AWSMock.restore('EventBridge')
-// })
