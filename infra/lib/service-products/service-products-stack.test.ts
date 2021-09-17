@@ -31,7 +31,7 @@ describe('Service Products Stack', () => {
       })
     })
 
-    it('has attributes', () => {
+    it('has hash+range key configured', () => {
       expect(stack).toHaveResourceLike('AWS::DynamoDB::Table', {
         AttributeDefinitions: [
           { AttributeName: 'productId', AttributeType: 'S' },
@@ -43,7 +43,7 @@ describe('Service Products Stack', () => {
       })
     })
 
-    it('has removal policy destroy', () => {
+    it('has removal policy set to destroy', () => {
       expect(stack).toHaveResourceLike(
         'AWS::DynamoDB::Table',
         {
@@ -52,6 +52,12 @@ describe('Service Products Stack', () => {
         },
         ResourcePart.CompleteDefinition
       )
+    })
+
+    it('has stream configured for new and old images', () => {
+      expect(stack).toHaveResourceLike('AWS::DynamoDB::Table', {
+        StreamSpecification: { StreamViewType: 'NEW_AND_OLD_IMAGES' },
+      })
     })
   })
 })

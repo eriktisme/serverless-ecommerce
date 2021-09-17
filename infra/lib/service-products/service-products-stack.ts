@@ -1,4 +1,10 @@
-import { AttributeType, BillingMode, ProjectionType, StreamViewType, Table } from '@aws-cdk/aws-dynamodb'
+import {
+  AttributeType,
+  BillingMode,
+  ProjectionType,
+  StreamViewType,
+  Table,
+} from '@aws-cdk/aws-dynamodb'
 import { ParameterType, StringParameter } from '@aws-cdk/aws-ssm'
 import { Construct, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core'
 import { StackConfiguration } from '../../config'
@@ -7,6 +13,8 @@ import { LibServerless } from '../lib-serverless'
 export class ServiceProductsStack extends Stack {
   public readonly productsTable: Table
   public readonly productsTableNameParameter: StringParameter
+  public readonly productsTableArnParameter: StringParameter
+  public readonly productsTableStreamArnParameter: StringParameter | undefined
 
   constructor(
     scope: Construct,
@@ -44,20 +52,25 @@ export class ServiceProductsStack extends Stack {
         type: AttributeType.STRING,
       },
       projectionType: ProjectionType.ALL,
-      readCapacity: 1,
-      writeCapacity: 1,
     })
 
     // https://github.com/aws/aws-cdk/issues/12246
     this.productsTable.addGlobalSecondaryIndex({
-      indexName: 'GS1SK',
+      indexName: 'GS1CATEGORY',
       partitionKey: {
-        name: 'GS1SK',
+        name: 'GS1CATEGORY',
         type: AttributeType.STRING,
       },
       projectionType: ProjectionType.ALL,
-      readCapacity: 1,
-      writeCapacity: 1,
+    })
+
+    this.productsTable.addGlobalSecondaryIndex({
+      indexName: 'GS1STATUS',
+      partitionKey: {
+        name: 'GS1STATUS',
+        type: AttributeType.STRING,
+      },
+      projectionType: ProjectionType.ALL,
     })
 
     this.productsTableNameParameter = new StringParameter(
@@ -69,5 +82,27 @@ export class ServiceProductsStack extends Stack {
         stringValue: this.productsTable.tableName,
       }
     )
+
+    this.productsTableArnParameter = new StringParameter(
+      this,
+      'products-table-arn-parameter',
+      {
+        parameterName: `/${stackConfig.project}/${stackConfig.stage}/products/table/arn`,
+        type: ParameterType.STRING,
+        stringValue: this.productsTable.tableArn,
+      }
+    )
+
+    if (this.productsTable.tableStreamArn) {
+      this.productsTableStreamArnParameter = new StringParameter(
+        this,
+        'products-table-stream-arn-parameter',
+        {
+          parameterName: `/${stackConfig.project}/${stackConfig.stage}/products/table/stream-arn`,
+          type: ParameterType.STRING,
+          stringValue: this.productsTable.tableStreamArn,
+        }
+      )
+    }
   }
 }
