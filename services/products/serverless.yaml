@@ -7,6 +7,7 @@ variablesResolutionMode: 20210326
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-plugin-optimize
   - serverless-iam-roles-per-function
 
 package:
@@ -41,4 +42,21 @@ custom:
     name: products
     tags: ${self:custom.service.name}
 
-#functions:
+functions:
+  table-update:
+    handler: src/table-update/handler.consumer
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - events:PutEvents
+        Resource: !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/platform/event-bus/arn}'
+        Condition:
+          StringEquals:
+            events:source: '${self:custom.project}.products'
+    events:
+      - stream:
+          type: dynamodb
+          maximumRetryAttempts: 3
+          # https://github.com/serverless/serverless/issues/8637
+          # arn: !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/products/table/stream-arn}'
+          arn: !Join ['', ['arn:aws:dynamodb:', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId', ':table/', !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/products/table/name}', '/stream/2021-09-16T18:55:32.087']]
