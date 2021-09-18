@@ -1,4 +1,5 @@
 import '@aws-cdk/assert/jest'
+import { ResourcePart } from '@aws-cdk/assert'
 import { App, Stack } from '@aws-cdk/core'
 import { StackConfiguration, StackEnvConfiguration } from '../../config'
 import { LibServerless } from './lib-serverless'
@@ -27,12 +28,16 @@ describe('Lib Serverless', () => {
       })
     })
 
-    // it('has removal policy destroyable', () => {
-    //   expect(stack).toHaveResourceLike('AWS::S3::Bucket', {
-    //     UpdateReplacePolicy: 'Delete',
-    //     DeletionPolicy: 'Delete',
-    //   })
-    // })
+    it('has removal policy destroyable', () => {
+      expect(stack).toHaveResourceLike(
+        'AWS::S3::Bucket',
+        {
+          UpdateReplacePolicy: 'Delete',
+          DeletionPolicy: 'Delete',
+        },
+        ResourcePart.CompleteDefinition
+      )
+    })
 
     it('has s3 managed encryption enabled', () => {
       expect(stack).toHaveResource('AWS::S3::Bucket', {
