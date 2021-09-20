@@ -1,5 +1,6 @@
 import { App, Tags } from '@aws-cdk/core'
 import { StackConfiguration } from '../config'
+import { CoreDomainStack } from '../lib/core-domain'
 import { CorePlatformStack } from '../lib/core-platform'
 import { ServiceFrontendApiStack } from '../lib/service-frontend-api'
 import { ServiceProductsStack } from '../lib/service-products'
@@ -115,5 +116,32 @@ export class StackBuilder {
     Tags.of(stack).add('environment-type', envType)
 
     return stack
+  }
+
+  addCoreDomainStack(): CoreDomainStack {
+    const envType = this.stackConfig.stage
+    const stackName = `${envType}-core-domain`
+
+    const stack = new CoreDomainStack(
+      this.app,
+      stackName,
+      {
+        stackName,
+        description:
+          'Stack to manage the core domain (e.g. public hosted zone, certificate) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': 'core',
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', 'core')
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
   }
 }
