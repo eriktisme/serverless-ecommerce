@@ -19,6 +19,8 @@ switch (stackConfig.stage) {
     stackBuilder.addCorePlatformStack()
     stackBuilder.addServiceProductsStack()
     stackBuilder.addServiceFrontendApiStack()
+    stackBuilder.addCoreDomainStack()
+    stackBuilder.addAppWebStack()
 
     break
   }

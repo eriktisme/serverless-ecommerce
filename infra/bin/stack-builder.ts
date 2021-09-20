@@ -1,5 +1,7 @@
-import { App, Tags } from '@aws-cdk/core'
+import { ICertificate } from '@aws-cdk/aws-certificatemanager'
+import { App, Construct, Stack, StackProps, Tags } from '@aws-cdk/core'
 import { StackConfiguration } from '../config'
+import { AppWebStack } from '../lib/app-web'
 import { CoreDomainStack } from '../lib/core-domain'
 import { CorePlatformStack } from '../lib/core-platform'
 import { ServiceFrontendApiStack } from '../lib/service-frontend-api'
@@ -143,5 +145,30 @@ export class StackBuilder {
 
     return stack
   }
+
+  addAppWebStack(): AppWebStack {
+    const envType = this.stackConfig.stage
+    const stackName = `${envType}-app-web`
+
+    const stack = new AppWebStack(
+      this.app,
+      stackName,
+      {
+        certificate: undefined,
+        stackName,
+        description: 'Stack to manage the web resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': 'app',
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', 'app')
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
   }
 }

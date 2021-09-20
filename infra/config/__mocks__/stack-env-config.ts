@@ -7,4 +7,7 @@ export const StackEnvConfiguration = (): StackConfiguration => ({
     account: '000000000000',
     region: 'eu-west-1',
   },
+  domain: {
+    domain: 'scaling.test',
+  },
 })

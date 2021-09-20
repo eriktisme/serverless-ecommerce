@@ -7,4 +7,7 @@ export const ProdConfig: StackConfiguration = {
     account: '096007086684',
     region: 'eu-west-1',
   },
+  domain: {
+    domain: 'scaling.cloud',
+  },
 }

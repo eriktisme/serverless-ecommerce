@@ -8,4 +8,5 @@ export const IntConfig: StackConfiguration = {
     account: '096007086684',
     region: 'eu-west-1',
   },
+  domain: ProdConfig.domain,
 }

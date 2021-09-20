@@ -5,4 +5,7 @@ export interface StackConfiguration {
     readonly account: string
     readonly region: string
   }
+  domain: {
+    readonly domain: string
+  }
 }
