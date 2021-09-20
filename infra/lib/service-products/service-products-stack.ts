@@ -24,7 +24,7 @@ export class ServiceProductsStack extends Stack {
   ) {
     super(scope, id, props)
 
-    new LibServerless(this, id, props, stackConfig)
+    new LibServerless(this, id)
 
     this.productsTable = new Table(
       this,

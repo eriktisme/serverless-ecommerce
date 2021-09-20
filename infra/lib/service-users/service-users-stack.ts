@@ -23,7 +23,7 @@ export class ServiceUsersStack extends Stack {
   ) {
     super(scope, id, props)
 
-    new LibServerless(this, id, props, stackConfig)
+    new LibServerless(this, id)
 
     this.userPool = new UserPool(this, 'user-pool', {
       userPoolName: `${stackConfig.stage}-${stackConfig.project}-user-pool`,
