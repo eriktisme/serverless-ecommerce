@@ -1,10 +1,15 @@
-import { ICertificate } from '@aws-cdk/aws-certificatemanager'
+import {
+  DnsValidatedCertificate,
+  ICertificate,
+} from '@aws-cdk/aws-certificatemanager'
+import { PublicHostedZone } from '@aws-cdk/aws-route53'
 import { Construct, Stack, StackProps } from '@aws-cdk/core'
 import { StackConfiguration } from '../../config'
-import { LibRoute53HostedZone } from '../lib-route53-hosted-zone'
 
 export class CoreDomainStack extends Stack {
-  public readonly certificate: ICertificate | undefined
+  public readonly zoneName: string
+  public readonly publicHostedZone: PublicHostedZone
+  public readonly certificate: ICertificate
 
   constructor(
     scope: Construct,
@@ -14,12 +19,25 @@ export class CoreDomainStack extends Stack {
   ) {
     super(scope, id, props)
 
-    const { certificate } = new LibRoute53HostedZone(
+    this.zoneName = `${stackConfig.stage}.${stackConfig.domain.domain}`
+
+    this.publicHostedZone = new PublicHostedZone(
       this,
-      `${id}-hosted-zone`,
-      stackConfig
+      `${id}-public-hosted-zone`,
+      {
+        zoneName: this.zoneName,
+      }
     )
 
-    this.certificate = certificate
+    // this.certificate = new DnsValidatedCertificate(
+    //   this,
+    //   `${id}-dns-validated-certificate`,
+    //   {
+    //     hostedZone: this.publicHostedZone,
+    //     domainName: this.zoneName,
+    //     subjectAlternativeNames: [`*.${this.zoneName}`],
+    //     region: 'us-east-1', // Forcing
+    //   }
+    // )
   }
 }
