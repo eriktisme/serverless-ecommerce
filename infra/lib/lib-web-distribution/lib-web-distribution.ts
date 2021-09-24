@@ -22,12 +22,15 @@ import * as path from 'path'
 interface LibAppProps {
   readonly domain: string
   readonly hostedZone: IHostedZone
+  // Experimental
+  readonly ssr: boolean
   // readonly certificate: ICertificate
 }
 
 export class LibWebDistribution extends Construct {
   public readonly sourceBucket: Bucket
   public readonly distribution: CloudFrontWebDistribution
+  public readonly edgeFunction?: EdgeFunction | undefined
 
   constructor(scope: Stack, id: string, props: LibAppProps) {
     super(scope, id)
@@ -80,6 +83,29 @@ export class LibWebDistribution extends Construct {
       defaultTtl: Duration.seconds(3600),
       maxTtl: Duration.seconds(86400),
       compress: true,
+    }
+
+    if (props.ssr) {
+      this.edgeFunction = new EdgeFunction(
+        this,
+        `${id}-origin-request-handler`,
+        {
+          code: Code.fromAsset(path.join(__dirname, 'edge')),
+          handler: 'index.handler',
+          runtime: Runtime.NODEJS_14_X,
+        }
+      )
+
+      defaultBehavior = {
+        ...defaultBehavior,
+        lambdaFunctionAssociations: [
+          {
+            eventType: LambdaEdgeEventType.ORIGIN_RESPONSE,
+            lambdaFunction: this.edgeFunction.currentVersion,
+            // includeBody: true,
+          },
+        ],
+      }
     }
 
     this.distribution = new CloudFrontWebDistribution(

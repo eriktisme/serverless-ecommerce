@@ -21,6 +21,7 @@ export class AppWebStack extends Stack {
       domain: `web.${stackConfig.stage}.${stackConfig.domain.domain}`,
       hostedZone: props.hostedZone,
       // certificate: props.certificate,
+      ssr: false,
     })
   }
 }
