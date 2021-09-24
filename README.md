@@ -2,9 +2,9 @@
 
 ## Background
 
-This project is to learn how to implement different AWS services and connect them together.
+N/A
 
-## Technologies
+## Build With
 
 - [AWS Amplify](https://aws.amazon.com/amplify/)
 - [AWS AppSync](https://aws.amazon.com/appsync/)
@@ -19,3 +19,7 @@ This project is to learn how to implement different AWS services and connect the
 - [TypeScript](https://www.typescriptlang.org/)
 - [Vue.js](https://vuejs.org/)
 
+## Documentation
+
+- [Getting Started](./docs/getting_started.md)
+- [Architecture](./docs/architecture)
