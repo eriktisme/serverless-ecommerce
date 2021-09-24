@@ -24,7 +24,6 @@
 import { Button } from '@/components/core-ui/buttons'
 import { Card, CardBody } from '@/components/core-ui/containers'
 import { InputGroup } from '@/components/core-ui/fields'
-import { useLogger } from '@/packages/logger'
 import { useUserStore } from '@/stores/user'
 import { Auth } from 'aws-amplify'
 import { defineComponent, reactive, ref, toRefs } from 'vue'
@@ -39,12 +38,6 @@ export default defineComponent({
     })
   },
   setup() {
-    const { log } = useLogger()
-
-    log({
-      message: 'New password page has been loaded.',
-    })
-
     const error = ref('')
     const busy = ref(false)
 

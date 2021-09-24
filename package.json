@@ -3,8 +3,16 @@
   "private": true,
   "workspaces": {
     "packages": [
+      "app",
       "libs/*",
-      "services/*"
+      "services/*",
+      "web"
+    ],
+    "nohoist": [
+      "**/@vue/cli-plugin-eslint",
+      "**/@vue/cli-plugin-eslint/**",
+      "**/@vue/cli-plugin-typescript",
+      "**/@vue/cli-plugin-typescript/**"
     ]
   },
   "scripts": {
