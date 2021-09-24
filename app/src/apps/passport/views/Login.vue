@@ -41,7 +41,6 @@ import { Button } from '@/components/core-ui/buttons'
 import { Card, CardBody } from '@/components/core-ui/containers'
 import { InputGroup } from '@/components/core-ui/fields'
 import { userStore } from '@/stores/user'
-import { log } from '@libs/logger'
 import { Auth } from 'aws-amplify'
 import { defineComponent, reactive, ref, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
@@ -55,10 +54,6 @@ export default defineComponent({
     })
   },
   setup() {
-    log('login', {
-      message: 'Log in page has been loaded.',
-    })
-
     const { push } = useRouter()
 
     const busy = ref(false)
