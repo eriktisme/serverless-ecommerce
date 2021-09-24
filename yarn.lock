@@ -14954,7 +14954,7 @@ serverless-plugin-typescript@^1.1.9:
     globby "^9.2.0"
     lodash "^4.17.21"
 
-serverless@^2.43.0, serverless@^2.43.1:
+serverless@^2.43.1:
   version "2.59.0"
   resolved "https://registry.yarnpkg.com/serverless/-/serverless-2.59.0.tgz#5d46bc26036d89cea366dadd71ecd0587e17f932"
   integrity sha512-HXUhoIOn0UyeJvtDcCDDvsmJqohXL/I2y7qTufqyB/1kpya0abW/OQ/Ox2HUtYR2dnw8xY8zJV3RSduYS5hg9A==

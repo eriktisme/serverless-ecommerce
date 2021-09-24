@@ -21,7 +21,6 @@
     "aws-amplify": "^4.0.2",
     "core-js": "^3.6.5",
     "debounce": "^1.2.1",
-    "serverless": "^2.43.0",
     "vue": "^3.2.1",
     "vue-router": "^4.0.10",
     "vuex": "^4.0.0"
