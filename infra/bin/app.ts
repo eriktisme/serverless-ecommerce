@@ -19,8 +19,9 @@ switch (stackConfig.stage) {
     stackBuilder.addCorePlatformStack()
     stackBuilder.addServiceProductsStack()
     stackBuilder.addServiceFrontendApiStack()
-    stackBuilder.addCoreDomainStack()
-    stackBuilder.addAppWebStack()
+
+    const { publicHostedZone } = stackBuilder.addCoreDomainStack()
+    stackBuilder.addAppWebStack(publicHostedZone)
 
     break
   }

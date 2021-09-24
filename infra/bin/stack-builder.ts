@@ -1,5 +1,5 @@
-import { ICertificate } from '@aws-cdk/aws-certificatemanager'
-import { App, Construct, Stack, StackProps, Tags } from '@aws-cdk/core'
+import { IHostedZone } from '@aws-cdk/aws-route53'
+import { App, Tags } from '@aws-cdk/core'
 import { StackConfiguration } from '../config'
 import { AppWebStack } from '../lib/app-web'
 import { CoreDomainStack } from '../lib/core-domain'
@@ -122,6 +122,7 @@ export class StackBuilder {
 
   addCoreDomainStack(): CoreDomainStack {
     const envType = this.stackConfig.stage
+    const resourceType = 'core'
     const stackName = `${envType}-core-domain`
 
     const stack = new CoreDomainStack(
@@ -133,40 +134,45 @@ export class StackBuilder {
           'Stack to manage the core domain (e.g. public hosted zone, certificate) resources.',
         env: this.stackConfig.env,
         tags: {
-          'resource-type': 'core',
+          'resource-type': resourceType,
           'environment-type': envType,
         },
       },
       this.stackConfig
     )
 
-    Tags.of(stack).add('resource-type', 'core')
+    Tags.of(stack).add('resource-type', resourceType)
     Tags.of(stack).add('environment-type', envType)
 
     return stack
   }
 
-  addAppWebStack(): AppWebStack {
+  addAppWebStack(
+    // certificate: ICertificate,
+    hostedZone: IHostedZone
+  ): AppWebStack {
     const envType = this.stackConfig.stage
+    const resourceType = 'app'
     const stackName = `${envType}-app-web`
 
     const stack = new AppWebStack(
       this.app,
       stackName,
       {
-        certificate: undefined,
+        // certificate,
+        hostedZone,
         stackName,
-        description: 'Stack to manage the web resources.',
+        description: 'Stack to manage the web (e.g. cloudfront) resources.',
         env: this.stackConfig.env,
         tags: {
-          'resource-type': 'app',
+          'resource-type': resourceType,
           'environment-type': envType,
         },
       },
       this.stackConfig
     )
 
-    Tags.of(stack).add('resource-type', 'app')
+    Tags.of(stack).add('resource-type', resourceType)
     Tags.of(stack).add('environment-type', envType)
 
     return stack

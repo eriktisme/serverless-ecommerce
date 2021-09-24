@@ -1,11 +1,11 @@
-import { ICertificate } from '@aws-cdk/aws-certificatemanager'
+import { IHostedZone } from '@aws-cdk/aws-route53'
 import { Construct, Stack, StackProps } from '@aws-cdk/core'
 import { StackConfiguration } from '../../config'
-import { LibServerless } from '../lib-serverless'
 import { LibWebDistribution } from '../lib-web-distribution'
 
 interface AppWebStackProps extends StackProps {
-  readonly certificate: ICertificate | undefined
+  readonly hostedZone: IHostedZone
+  // readonly certificate: ICertificate
 }
 
 export class AppWebStack extends Stack {
@@ -17,16 +17,10 @@ export class AppWebStack extends Stack {
   ) {
     super(scope, id, props)
 
-    new LibServerless(this, 'app-web')
-
-    new LibWebDistribution(
-      this,
-      'app-web-app',
-      {
-        certificate: props.certificate,
-        domain: `web.${stackConfig.stage}.${stackConfig.domain.domain}`,
-      },
-      stackConfig
-    )
+    new LibWebDistribution(this, 'app-web-app', {
+      domain: `web.${stackConfig.stage}.${stackConfig.domain.domain}`,
+      hostedZone: props.hostedZone,
+      // certificate: props.certificate,
+    })
   }
 }
