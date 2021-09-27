@@ -13,12 +13,10 @@ describe('Lib Serverless', () => {
   let stack: Stack
   let library: LibServerless
 
-  const stackConfig: StackConfiguration = StackEnvConfiguration(mockStackName)
-
   beforeEach(() => {
     app = new App()
     stack = new Stack(app)
-    library = new LibServerless(stack, mockStackName, {}, stackConfig)
+    library = new LibServerless(stack, mockStackName)
   })
 
   describe('an s3 bucket is created for Serverless deployment artifacts', () => {

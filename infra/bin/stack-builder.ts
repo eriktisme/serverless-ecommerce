@@ -99,20 +99,15 @@ export class StackBuilder {
     const envType = this.stackConfig.stage
     const stackName = `${envType}-service-frontend-api`
 
-    const stack = new ServiceFrontendApiStack(
-      this.app,
+    const stack = new ServiceFrontendApiStack(this.app, stackName, {
       stackName,
-      {
-        stackName,
-        description: 'Stack to manage the frontend api resources.',
-        env: this.stackConfig.env,
-        tags: {
-          'resource-type': 'service',
-          'environment-type': envType,
-        },
+      description: 'Stack to manage the frontend api resources.',
+      env: this.stackConfig.env,
+      tags: {
+        'resource-type': 'service',
+        'environment-type': envType,
       },
-      this.stackConfig
-    )
+    })
 
     Tags.of(stack).add('resource-type', 'service')
     Tags.of(stack).add('environment-type', envType)

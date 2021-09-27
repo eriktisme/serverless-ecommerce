@@ -1,7 +1,4 @@
-import {
-  DnsValidatedCertificate,
-  ICertificate,
-} from '@aws-cdk/aws-certificatemanager'
+import { ICertificate } from '@aws-cdk/aws-certificatemanager'
 import { PublicHostedZone } from '@aws-cdk/aws-route53'
 import { Construct, Stack, StackProps } from '@aws-cdk/core'
 import { StackConfiguration } from '../../config'

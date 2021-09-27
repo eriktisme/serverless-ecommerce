@@ -34,11 +34,15 @@ describe('Service Products Stack', () => {
     it('has hash+range key configured', () => {
       expect(stack).toHaveResourceLike('AWS::DynamoDB::Table', {
         AttributeDefinitions: [
-          { AttributeName: 'productId', AttributeType: 'S' },
+          { AttributeName: 'PK', AttributeType: 'S' },
+          { AttributeName: 'SK', AttributeType: 'S' },
+          { AttributeName: 'GS1PK', AttributeType: 'S' },
+          { AttributeName: 'GS1CATEGORY', AttributeType: 'S' },
+          { AttributeName: 'GS1STATUS', AttributeType: 'S' },
         ],
         KeySchema: [
-          { AttributeName: 'productId', KeyType: 'HASH' },
-          { AttributeName: 'productId', KeyType: 'RANGE' },
+          { AttributeName: 'PK', KeyType: 'HASH' },
+          { AttributeName: 'SK', KeyType: 'RANGE' },
         ],
       })
     })
