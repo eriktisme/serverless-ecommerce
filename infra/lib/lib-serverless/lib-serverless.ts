@@ -5,21 +5,11 @@ import {
   IBucket,
 } from '@aws-cdk/aws-s3'
 import { Construct, RemovalPolicy, Stack } from '@aws-cdk/core'
-import { StackConfiguration } from '../../config'
-
-interface LibServerlessConstructProps {
-  //
-}
 
 export class LibServerless extends Construct {
   public readonly bucket: IBucket
 
-  constructor(
-    scope: Stack,
-    id: string,
-    props: LibServerlessConstructProps,
-    stackConfig: StackConfiguration
-  ) {
+  constructor(scope: Stack, id: string) {
     super(scope, id)
 
     this.bucket = new Bucket(this, id, {

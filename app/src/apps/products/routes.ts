@@ -6,4 +6,9 @@ export const routes: RouteRecordRaw[] = [
     name: 'products',
     component: () => import('./views/Products.vue'),
   },
+  {
+    path: '/products/create-product',
+    name: 'create-product',
+    component: () => import('./views/CreateProduct.vue'),
+  },
 ]

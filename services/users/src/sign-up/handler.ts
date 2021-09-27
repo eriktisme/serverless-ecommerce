@@ -1,5 +1,6 @@
 import { EventBridge } from 'aws-sdk'
 import { PutEventsRequestEntry } from 'aws-sdk/clients/eventbridge'
+import { sendEvents } from '@libs/event-bridge'
 
 export function instances() {
   return {
@@ -9,10 +10,10 @@ export function instances() {
   }
 }
 
-export async function consumer(event: any, _, callback) {
+export async function consumer(event: any) {
   console.debug({
     message: 'Input event',
-    event: JSON.stringify(event),
+    event,
   })
 
   // Do not auto confirm users
@@ -32,7 +33,7 @@ export async function consumer(event: any, _, callback) {
       triggerSource: event.triggerSource,
     })
 
-    return callback(null, event)
+    return event
   }
 
   const processedRequest = processRequest(event)
@@ -42,9 +43,9 @@ export async function consumer(event: any, _, callback) {
     event: processedRequest,
   })
 
-  await sendEvent(processedRequest)
+  await sendEvents(instances().eventBridge, [processedRequest])
 
-  callback(null, event)
+  return event
 }
 
 /**
@@ -65,17 +66,4 @@ export function processRequest(event: any): PutEventsRequestEntry {
     DetailType: 'UserCreated',
     EventBusName: process.env.EVENT_BUS_NAME,
   }
-}
-
-/**
- * Put event into the event bus.
- *
- * @param {PutEventsRequestEntry} event
- */
-export async function sendEvent(event: PutEventsRequestEntry) {
-  return await instances()
-    .eventBridge.putEvents({
-      Entries: [event],
-    })
-    .promise()
 }

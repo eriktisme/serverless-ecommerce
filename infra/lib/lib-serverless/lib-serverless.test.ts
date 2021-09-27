@@ -1,4 +1,5 @@
 import '@aws-cdk/assert/jest'
+import { ResourcePart } from '@aws-cdk/assert'
 import { App, Stack } from '@aws-cdk/core'
 import { StackConfiguration, StackEnvConfiguration } from '../../config'
 import { LibServerless } from './lib-serverless'
@@ -12,12 +13,10 @@ describe('Lib Serverless', () => {
   let stack: Stack
   let library: LibServerless
 
-  const stackConfig: StackConfiguration = StackEnvConfiguration(mockStackName)
-
   beforeEach(() => {
     app = new App()
     stack = new Stack(app)
-    library = new LibServerless(stack, mockStackName, {}, stackConfig)
+    library = new LibServerless(stack, mockStackName)
   })
 
   describe('an s3 bucket is created for Serverless deployment artifacts', () => {
@@ -27,12 +26,16 @@ describe('Lib Serverless', () => {
       })
     })
 
-    // it('has removal policy destroyable', () => {
-    //   expect(stack).toHaveResourceLike('AWS::S3::Bucket', {
-    //     UpdateReplacePolicy: 'Delete',
-    //     DeletionPolicy: 'Delete',
-    //   })
-    // })
+    it('has removal policy destroyable', () => {
+      expect(stack).toHaveResourceLike(
+        'AWS::S3::Bucket',
+        {
+          UpdateReplacePolicy: 'Delete',
+          DeletionPolicy: 'Delete',
+        },
+        ResourcePart.CompleteDefinition
+      )
+    })
 
     it('has s3 managed encryption enabled', () => {
       expect(stack).toHaveResource('AWS::S3::Bucket', {

@@ -66,7 +66,6 @@
 import { Button } from '@/components/core-ui/buttons'
 import { Card, CardBody } from '@/components/core-ui/containers'
 import { InputGroup } from '@/components/core-ui/fields'
-import { useLogger } from '@/packages/logger'
 import { Auth } from 'aws-amplify'
 import { defineComponent, reactive, ref, toRefs } from 'vue'
 import WelcomePage from '../components/WelcomePage.vue'
@@ -79,12 +78,6 @@ export default defineComponent({
     })
   },
   setup() {
-    const { log } = useLogger()
-
-    log({
-      message: 'Forgot password page has been loaded.',
-    })
-
     const email = ref('')
     const formSubmitted = ref(false)
     const submittingForgotEmailForm = ref(false)

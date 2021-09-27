@@ -1,0 +1,17 @@
+$util.qr( $ctx.args.input.put("createdAt", $util.time.nowISO8601()) )
+$util.qr( $ctx.args.input.put("createdBy", $ctx.identity.sub) )
+$util.qr( $ctx.args.input.put("updatedAt", $util.time.nowISO8601()) )
+$util.qr( $ctx.args.input.put("updatedBy", $ctx.identity.sub) )
+$util.qr( $ctx.args.input.put("productId", $util.autoId()) )
+
+{
+  "version": "2017-02-28",
+  "operation": "PutItem",
+  "key" : {
+    "PK": $util.dynamodb.toDynamoDBJson("PRODUCT#$ctx.args.input.get('productId')"),
+    "GS1PK": $util.dynamodb.toDynamoDBJson("PRODUCT"),
+    "SK": $util.dynamodb.toDynamoDBJson("PRODUCT"),
+    "GS1SK": $util.dynamodb.toDynamoDBJson("STATUS#$ctx.args.input.get('status')")
+  },
+  "attributeValues": $util.dynamodb.toMapValuesJson($ctx.args.input)
+}

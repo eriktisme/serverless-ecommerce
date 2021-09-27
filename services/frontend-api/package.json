@@ -1,0 +1,9 @@
+{
+  "name": "frontend-api",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "serverless": "^2.43.1",
+    "serverless-appsync-plugin": "^1.11.3"
+  }
+}

@@ -47,7 +47,6 @@
 </template>
 
 <script lang="ts">
-import { useLogger } from '@/packages/logger'
 import { Card, CardBody } from '@/components/core-ui/containers'
 import WelcomePage from '../components/WelcomePage.vue'
 import { Button } from '@/components/core-ui/buttons'
@@ -64,12 +63,6 @@ export default defineComponent({
     })
   },
   setup() {
-    const { log } = useLogger()
-
-    log({
-      message: 'Registration page has been loaded.',
-    })
-
     const error = ref('')
     const busy = ref(false)
 
@@ -117,9 +110,6 @@ export default defineComponent({
       ...toRefs(form),
       error,
       register,
-      handleInput: (value: any) => {
-        console.log(value)
-      },
       busy,
     }
   },

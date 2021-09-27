@@ -1,0 +1,22 @@
+#set($limit=$util.defaultIfNull($ctx.args.limit, 10))
+#if($limit>100)
+  #set($limit=100)
+#end
+{
+  "version": "2017-02-28",
+  "operation": "Query",
+  "index": "GS1PK",
+  "limit": $util.toJson($limit),
+  "nextToken": $util.toJson($ctx.args.nextToken),
+  "scanIndexForward": false,
+  "select": "ALL_ATTRIBUTES",
+  "query" : {
+    "expression": "#GS1PK = :GS1PK",
+    "expressionNames": {
+      "#GS1PK": "GS1PK"
+    },
+    "expressionValues" : {
+      ":GS1PK": $util.dynamodb.toDynamoDBJson("PRODUCT"),
+    }
+  }
+}

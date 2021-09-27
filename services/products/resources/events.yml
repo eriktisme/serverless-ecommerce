@@ -1,0 +1,20 @@
+openapi: '3.0.2'
+
+info:
+  title: Products events
+  version: 1.0.0
+
+paths: {}
+
+components:
+  schemas:
+    ProductCreated:
+      x-amazon-events-source: serverless-ecommerce.products
+      x-amazon-events-detail-type: ProductCreated
+      description: Event emitted when a product is created.
+      allOf:
+        - $ref: '../../shared/resources/schema.yml#EventBridgeHeader'
+        - type: object
+          properties:
+            details:
+              $ref: '../../shared/resources/schema.yml#Product'

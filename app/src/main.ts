@@ -17,10 +17,12 @@ Amplify.configure({
 
   API: {
     region: process.env.VUE_APP_APPSYNC_REGION || defaultRegion,
-    graphql_endpoint: process.env.VUE_APP_APPSYNC_GRAPHQL_ENDPOINT || '',
+    graphql_endpoint: process.env.VUE_APP_APPSYNC_GRAPHQL_ENDPOINT,
   },
 
   Auth: {
+    mandatorySignIn: true,
+
     // Amazon Cognito Region
     region: process.env.VUE_APP_COGNITO_REGION || defaultRegion,
 

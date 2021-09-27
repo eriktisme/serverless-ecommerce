@@ -40,7 +40,6 @@
 import { Button } from '@/components/core-ui/buttons'
 import { Card, CardBody } from '@/components/core-ui/containers'
 import { InputGroup } from '@/components/core-ui/fields'
-import { useLogger } from '@/packages/logger'
 import { userStore } from '@/stores/user'
 import { Auth } from 'aws-amplify'
 import { defineComponent, reactive, ref, toRefs } from 'vue'
@@ -55,12 +54,6 @@ export default defineComponent({
     })
   },
   setup() {
-    const { log } = useLogger()
-
-    log({
-      message: 'Log in page has been loaded.',
-    })
-
     const { push } = useRouter()
 
     const busy = ref(false)
@@ -81,6 +74,14 @@ export default defineComponent({
           form.loginForm.email,
           form.loginForm.password
         )
+
+        const groups =
+          user.getSignInUserSession().getIdToken().payload['cognito:groups'] ??
+          []
+
+        if (!groups.includes('admin')) {
+          throw new Error('Entered credentials not found')
+        }
 
         await userStore.commit('user', user)
 

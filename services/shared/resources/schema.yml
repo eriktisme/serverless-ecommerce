@@ -38,3 +38,45 @@ User:
       format: email
       description: User email address, used to log in the user.
       example: john.doe@example.com
+
+ProductCategory:
+  type: object
+  description: Representation of a single product category.
+  required:
+    - name
+
+Product:
+  type: object
+  description: Representation of a single product.
+  required:
+    - productId
+    - name
+    #    - category
+    - price
+  properties:
+    productId:
+      type: string
+      format: uuid
+      description: Unique identifier in UUID format for the product.
+      example: b2d0c356-f92b-4629-a87f-786331c2842f
+    name:
+      type: string
+      description: User facing product name.
+    category:
+      $ref: '#/ProductCategory'
+      description: User facing product category.
+    price:
+      type: integer
+      description: Price for the product.
+      minimum: 0
+    tags:
+      type: array
+      description: Array of searchable tags about the product.
+      items:
+        type: string
+    pictures:
+      type: array
+      description: Array of pictures about the product.
+      items:
+        type: string
+        format: uri

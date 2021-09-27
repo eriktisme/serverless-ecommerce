@@ -10,22 +10,6 @@ export const routes: RouteRecordRaw[] = [
     },
   },
   {
-    path: '/confirm',
-    name: 'confirm',
-    component: () => import('./views/Confirm.vue'),
-    meta: {
-      public: true,
-    },
-  },
-  {
-    path: '/forgot-password',
-    name: 'forgot-password',
-    component: () => import('./views/ForgotPassword.vue'),
-    meta: {
-      public: true,
-    },
-  },
-  {
     path: '/new-password',
     name: 'new-password',
     component: () => import('./views/NewPassword.vue'),

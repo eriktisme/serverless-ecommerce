@@ -1,6 +1,11 @@
+import { IHostedZone } from '@aws-cdk/aws-route53'
 import { App, Tags } from '@aws-cdk/core'
 import { StackConfiguration } from '../config'
+import { AppWebStack } from '../lib/app-web'
+import { CoreDomainStack } from '../lib/core-domain'
 import { CorePlatformStack } from '../lib/core-platform'
+import { ServiceFrontendApiStack } from '../lib/service-frontend-api'
+import { ServiceProductsStack } from '../lib/service-products'
 import { ServiceUsersStack } from '../lib/service-users'
 
 export class StackBuilder {
@@ -59,6 +64,110 @@ export class StackBuilder {
     )
 
     Tags.of(stack).add('resource-type', 'service')
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
+
+  addServiceProductsStack(): ServiceProductsStack {
+    const envType = this.stackConfig.stage
+    const stackName = `${envType}-service-products`
+
+    const stack = new ServiceProductsStack(
+      this.app,
+      stackName,
+      {
+        stackName,
+        description:
+          'Stack to manage the products service (e.g. dynamodb table) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': 'service',
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', 'service')
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
+
+  addServiceFrontendApiStack(): ServiceFrontendApiStack {
+    const envType = this.stackConfig.stage
+    const stackName = `${envType}-service-frontend-api`
+
+    const stack = new ServiceFrontendApiStack(this.app, stackName, {
+      stackName,
+      description: 'Stack to manage the frontend api resources.',
+      env: this.stackConfig.env,
+      tags: {
+        'resource-type': 'service',
+        'environment-type': envType,
+      },
+    })
+
+    Tags.of(stack).add('resource-type', 'service')
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
+
+  addCoreDomainStack(): CoreDomainStack {
+    const envType = this.stackConfig.stage
+    const resourceType = 'core'
+    const stackName = `${envType}-core-domain`
+
+    const stack = new CoreDomainStack(
+      this.app,
+      stackName,
+      {
+        stackName,
+        description:
+          'Stack to manage the core domain (e.g. public hosted zone, certificate) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': resourceType,
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', resourceType)
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
+
+  addAppWebStack(
+    // certificate: ICertificate,
+    hostedZone: IHostedZone
+  ): AppWebStack {
+    const envType = this.stackConfig.stage
+    const resourceType = 'app'
+    const stackName = `${envType}-app-web`
+
+    const stack = new AppWebStack(
+      this.app,
+      stackName,
+      {
+        // certificate,
+        hostedZone,
+        stackName,
+        description: 'Stack to manage the web (e.g. cloudfront) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': resourceType,
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', resourceType)
     Tags.of(stack).add('environment-type', envType)
 
     return stack

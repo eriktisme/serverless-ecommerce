@@ -9,8 +9,6 @@ import Amplify from 'aws-amplify'
 
 const defaultRegion = 'eu-west-1'
 
-console.log(process.env)
-
 Amplify.configure({
   aws_project_region: process.env.VUE_APP_PROJECT_REGION || defaultRegion,
   oauth: {},

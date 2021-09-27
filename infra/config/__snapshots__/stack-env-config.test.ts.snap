@@ -2,6 +2,9 @@
 
 exports[`Stack environment configuration returns int stack configuration given context=dev 1`] = `
 Object {
+  "domain": Object {
+    "domain": "scaling.cloud",
+  },
   "env": Object {
     "account": "096007086684",
     "region": "eu-west-1",
@@ -13,6 +16,9 @@ Object {
 
 exports[`Stack environment configuration returns int stack configuration given context=int 1`] = `
 Object {
+  "domain": Object {
+    "domain": "scaling.cloud",
+  },
   "env": Object {
     "account": "096007086684",
     "region": "eu-west-1",
@@ -24,6 +30,9 @@ Object {
 
 exports[`Stack environment configuration returns prod stack configuration given context=prod 1`] = `
 Object {
+  "domain": Object {
+    "domain": "scaling.cloud",
+  },
   "env": Object {
     "account": "096007086684",
     "region": "eu-west-1",
