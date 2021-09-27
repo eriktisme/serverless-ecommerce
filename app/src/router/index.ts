@@ -4,7 +4,11 @@ import { routes as passportRoutes } from '@/apps/passport'
 import { routes as productsRoutes } from '@/apps/products'
 import { userStore } from '@/stores/user'
 
-const routes: RouteRecordRaw[] = [...dashboardRoutes, ...passportRoutes, ...productsRoutes]
+const routes: RouteRecordRaw[] = [
+  ...dashboardRoutes,
+  ...passportRoutes,
+  ...productsRoutes,
+]
 
 export const router = createRouter({
   history: createWebHistory(),
