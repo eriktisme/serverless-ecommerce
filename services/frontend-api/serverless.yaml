@@ -55,12 +55,16 @@ custom:
 
     - name: ${self:provider.stage}-${self:custom.project}-private-api
       authenticationType: AMAZON_COGNITO_USER_POOLS
-      xrayEnabled: false
+      xrayEnabled: true
 
-      #      logConfig:
-      #        loggingRoleArn: !GetAtt []
-      #        level: ERROR
-      #        excludeVerboseContent: false
+      wafConfig:
+        enabled: true
+        name: ${self:provider.stage}-${self:custom.project}-private-api-waf
+        description: "The Private API WAF rules"
+        defaultAction: Allow
+        rules:
+          - throttle: 100
+          - disableIntrospection
 
       userPoolConfig:
         awsRegion: ${self:provider.region}
