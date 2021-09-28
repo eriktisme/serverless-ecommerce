@@ -12,7 +12,7 @@ export function instances() {
 export async function consumer(event: any) {
   console.debug({
     message: 'Input event',
-    event,
+    event: JSON.stringify(event),
   })
 
   const records: any[] = event['Records'] ?? []
