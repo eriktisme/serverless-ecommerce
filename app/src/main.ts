@@ -1,4 +1,5 @@
 import { router } from './router'
+import { sidebarStore, sidebarStoreKey } from './stores/sidebar'
 import { userStore, userStoreKey } from './stores/user'
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -8,7 +9,7 @@ import Amplify from 'aws-amplify'
 
 const defaultRegion = 'eu-west-1'
 
-const env = import.meta.env;
+const env = import.meta.env
 
 Amplify.configure({
   aws_project_region: env.VITE_PROJECT_REGION || defaultRegion,
@@ -36,6 +37,7 @@ Amplify.configure({
 const app = createApp(App)
 
 app.use(userStore, userStoreKey)
+app.use(sidebarStore, sidebarStoreKey)
 app.use(router)
 
 app.mount('#app')
