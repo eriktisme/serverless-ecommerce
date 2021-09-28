@@ -44,6 +44,18 @@ export class ServiceUsersStack extends Stack {
           required: true,
           mutable: true,
         },
+        givenName: {
+          required: true,
+          mutable: true,
+        },
+        familyName: {
+          required: true,
+          mutable: true,
+        },
+        profilePicture: {
+          required: false,
+          mutable: true,
+        },
       },
     })
 
