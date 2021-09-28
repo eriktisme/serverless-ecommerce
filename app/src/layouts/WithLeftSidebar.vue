@@ -16,13 +16,23 @@ const { state, commit } = useSidebarStore()
 const closeOverlay = () => commit('toggle', !open)
 </script>
 
+<style scoped>
+.sidebar-is-open {
+  transform: translateX(300px);
+}
+</style>
+
 <template>
   <div class="flex flex-col w-full h-full overflow-hidden bg-white">
     <div class="flex relative h-full">
       <Sidebar :is-open="state.open" />
+
+      <!-- Main Content -->
       <div
         class="
-          flex flex-col flex-1
+          flex
+          flex-col
+          flex-auto
           relative
           overflow-hidden
           h-full
@@ -30,9 +40,12 @@ const closeOverlay = () => commit('toggle', !open)
           transform
           transition-transform
         "
+        :class="[{ 'sidebar-is-open': state.open }]"
       >
         <slot />
       </div>
+
+      <!-- Overlay -->
       <div
         @click.self="closeOverlay"
         class="

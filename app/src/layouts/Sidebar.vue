@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { UserCircleIcon, HomeIcon } from '@heroicons/vue/outline'
 
 defineProps({
@@ -7,18 +6,20 @@ defineProps({
 })
 </script>
 
+<style scoped>
+.sidebar {
+  @apply flex flex-none absolute lg:relative -translate-x-full lg:translate-x-0 h-full z-20 transform transition-transform
+}
+
+.sidebar.is-open {
+  @apply translate-x-0
+}
+</style>
+
 <template>
   <div
-    class="
-      flex flex-none
-      absolute
-      lg:relative
-      h-full
-      z-20
-      transform
-      transition-transform
-    "
-    :class="[{ 'translate-x-0': isOpen, '-translate-x-full': !isOpen }]"
+    class="sidebar"
+    :class="[{ 'is-open': isOpen }]"
   >
     <div
       class="flex flex-col flex-none bg-wild-sand-500 text-black z-10"

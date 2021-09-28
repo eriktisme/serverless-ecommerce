@@ -10,7 +10,7 @@ export const sidebarStoreKey: InjectionKey<Store<SidebarState>> = Symbol()
 
 export const sidebarStore = createStore<SidebarState>({
   state: {
-    open: false,
+    open: true,
   },
   mutations: {
     toggle(state, open) {
