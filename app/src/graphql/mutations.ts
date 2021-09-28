@@ -8,4 +8,4 @@ export const createProduct = /* GraphQL */ `
       success
     }
   }
-`;
+`

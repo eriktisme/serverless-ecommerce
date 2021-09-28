@@ -22,6 +22,7 @@ switch (stackConfig.stage) {
 
     const { publicHostedZone } = stackBuilder.addCoreDomainStack()
     stackBuilder.addAppWebStack(publicHostedZone)
+    stackBuilder.addAppAppStack(publicHostedZone)
 
     break
   }

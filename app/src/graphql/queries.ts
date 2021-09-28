@@ -19,7 +19,7 @@ export const getProducts = /* GraphQL */ `
       nextToken
     }
   }
-`;
+`
 export const getProduct = /* GraphQL */ `
   query GetProduct($productId: ID!) {
     getProduct(productId: $productId) {
@@ -39,4 +39,4 @@ export const getProduct = /* GraphQL */ `
       deletedAt
     }
   }
-`;
+`

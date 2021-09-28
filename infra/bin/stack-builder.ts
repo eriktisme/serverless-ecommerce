@@ -1,6 +1,7 @@
 import { IHostedZone } from '@aws-cdk/aws-route53'
 import { App, Tags } from '@aws-cdk/core'
 import { StackConfiguration } from '../config'
+import { AppAppStack } from '../lib/app-app'
 import { AppWebStack } from '../lib/app-web'
 import { CoreDomainStack } from '../lib/core-domain'
 import { CorePlatformStack } from '../lib/core-platform'
@@ -158,6 +159,37 @@ export class StackBuilder {
         hostedZone,
         stackName,
         description: 'Stack to manage the web (e.g. cloudfront) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': resourceType,
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', resourceType)
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
+
+  addAppAppStack(
+    // certificate: ICertificate,
+    hostedZone: IHostedZone
+  ): AppAppStack {
+    const envType = this.stackConfig.stage
+    const resourceType = 'app'
+    const stackName = `${envType}-app-app`
+
+    const stack = new AppAppStack(
+      this.app,
+      stackName,
+      {
+        // certificate,
+        hostedZone,
+        stackName,
+        description: 'Stack to manage the app (e.g. cloudfront) resources.',
         env: this.stackConfig.env,
         tags: {
           'resource-type': resourceType,
