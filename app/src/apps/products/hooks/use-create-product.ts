@@ -1,5 +1,5 @@
-import { ProductInput, ProductStatus } from '@/API'
-import { createProduct } from '@/graphql/mutations'
+import { ProductInput, ProductStatus } from '../../../API'
+import { createProduct } from '../../../graphql/mutations'
 import { API, graphqlOperation } from 'aws-amplify'
 import { reactive, toRefs } from 'vue'
 
@@ -15,9 +15,7 @@ export function useCreateProduct() {
 
   const create = async () => {
     console.log('create product')
-    await API.graphql(
-      graphqlOperation(createProduct, { product: state.form }),
-    )
+    await API.graphql(graphqlOperation(createProduct, { product: state.form }))
   }
 
   const statusOptions = [

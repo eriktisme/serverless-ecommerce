@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import { routes as dashboardRoutes } from '@/apps/dashboard'
-import { routes as passportRoutes } from '@/apps/passport'
-import { routes as productsRoutes } from '@/apps/products'
-import { userStore } from '@/stores/user'
+import { routes as dashboardRoutes } from '../apps/dashboard'
+import { routes as passportRoutes } from '../apps/passport'
+import { routes as productsRoutes } from '../apps/products'
+import { userStore } from '../stores/user'
 
 const routes: RouteRecordRaw[] = [
   ...dashboardRoutes,
