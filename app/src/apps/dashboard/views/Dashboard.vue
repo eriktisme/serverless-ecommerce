@@ -1,21 +1,23 @@
 <template>
   <with-left-sidebar>
-    Protected
+    <ContentWithHeader>
+      Protected
 
-    <button @click="logout" type="button">Logout</button>
-    <button @click="openSidebar" type="button">Sidebar</button>
+      <button @click="logout" type="button">Logout</button>
+      <button @click="openSidebar" type="button">Sidebar</button>
+    </ContentWithHeader>
   </with-left-sidebar>
 </template>
 
 <script lang="ts">
-import WithLeftSidebar from '../../../layouts/WithLeftSidebar.vue'
+import { ContentWithHeader, WithLeftSidebar } from '@/layouts'
 import { Auth } from 'aws-amplify'
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
-import { useSidebarStore } from '../../../stores/sidebar'
+import { useSidebarStore } from '@/stores/sidebar'
 
 export default defineComponent({
-  components: { WithLeftSidebar },
+  components: { ContentWithHeader, WithLeftSidebar },
   setup() {
     const { push } = useRouter()
 

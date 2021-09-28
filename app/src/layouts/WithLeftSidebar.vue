@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useSidebarStore } from '../stores/sidebar'
+import { useSidebarStore } from '@/stores/sidebar'
 import Sidebar from './Sidebar.vue'
 
 const route = useRoute()
@@ -30,9 +30,7 @@ const closeOverlay = () => commit('toggle', !open)
       <!-- Main Content -->
       <div
         class="
-          flex
-          flex-col
-          flex-auto
+          flex flex-col flex-auto
           relative
           overflow-hidden
           h-full
