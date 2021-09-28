@@ -42,6 +42,7 @@
     "@aws-cdk/aws-iam": "^1.118.0",
     "@aws-cdk/aws-lambda": "^1.118.0",
     "@aws-cdk/aws-lambda-nodejs": "^1.118.0",
+    "@aws-cdk/aws-pinpoint": "^1.118.0",
     "@aws-cdk/aws-route53": "^1.118.0",
     "@aws-cdk/aws-route53-targets": "^1.118.0",
     "@aws-cdk/aws-s3": "^1.118.0",

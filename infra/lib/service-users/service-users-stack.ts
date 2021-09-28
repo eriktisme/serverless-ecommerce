@@ -1,4 +1,5 @@
 import {
+  CfnUserPoolClient,
   CfnUserPoolGroup,
   UserPool,
   UserPoolClient,
@@ -7,6 +8,11 @@ import { ParameterType, StringParameter } from '@aws-cdk/aws-ssm'
 import { Construct, RemovalPolicy, Stack, StackProps } from '@aws-cdk/core'
 import { StackConfiguration } from '../../config'
 import { LibServerless } from '../lib-serverless'
+import { CfnApp } from '@aws-cdk/aws-pinpoint'
+
+interface ServiceUsersStackProps extends StackProps {
+  readonly pinpointProject: CfnApp
+}
 
 export class ServiceUsersStack extends Stack {
   public readonly userPool: UserPool
@@ -18,7 +24,7 @@ export class ServiceUsersStack extends Stack {
   constructor(
     scope: Construct,
     id: string,
-    props: StackProps,
+    props: ServiceUsersStackProps,
     stackConfig: StackConfiguration
   ) {
     super(scope, id, props)
@@ -65,6 +71,14 @@ export class ServiceUsersStack extends Stack {
       generateSecret: false,
       // refreshTokenValidity: Duration.days(30),
     })
+
+    const userPoolClient = this.userPoolClient.node
+      .defaultChild as CfnUserPoolClient
+
+    userPoolClient.analyticsConfiguration = {
+      applicationArn: props.pinpointProject.attrArn,
+      userDataShared: true,
+    }
 
     this.userPoolAdminGroup = new CfnUserPoolGroup(
       this,

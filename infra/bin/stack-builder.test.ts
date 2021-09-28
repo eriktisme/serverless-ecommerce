@@ -15,7 +15,7 @@ describe('Stack Builder', () => {
   })
 
   it('ensure tags are added to the core network stack resources', () => {
-    expect(stackBuilder.addServiceUsersStack()).toHaveResource(
+    expect(stackBuilder.addServiceProductsStack()).toHaveResource(
       'AWS::S3::Bucket',
       {
         Tags: [

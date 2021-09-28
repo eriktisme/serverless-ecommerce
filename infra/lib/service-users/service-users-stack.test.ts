@@ -1,7 +1,8 @@
 import '@aws-cdk/assert/jest'
-import { App } from '@aws-cdk/core'
+import { App, Stack } from '@aws-cdk/core'
 import { StackConfiguration, StackEnvConfiguration } from '../../config'
 import { ServiceUsersStack } from './service-users-stack'
+import { CfnApp } from '@aws-cdk/aws-pinpoint'
 
 jest.mock('../../config/stack-env-config')
 
@@ -18,6 +19,13 @@ describe('Service Users Stack', () => {
       'service-users',
       {
         env: stackConfig.env,
+        pinpointProject: new CfnApp(
+          new Stack(app, 'MyFakeStack2', {
+            env: stackConfig.env,
+          }),
+          'my-fake-pinpoint-project',
+          { name: 'fake-pinpoint-project' }
+        ),
       },
       stackConfig
     )

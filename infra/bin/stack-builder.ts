@@ -8,6 +8,8 @@ import { CorePlatformStack } from '../lib/core-platform'
 import { ServiceFrontendApiStack } from '../lib/service-frontend-api'
 import { ServiceProductsStack } from '../lib/service-products'
 import { ServiceUsersStack } from '../lib/service-users'
+import { CoreMarketingStack } from '../lib/core-marketing'
+import { CfnApp } from '@aws-cdk/aws-pinpoint'
 
 export class StackBuilder {
   readonly app: App
@@ -44,7 +46,7 @@ export class StackBuilder {
     return stack
   }
 
-  addServiceUsersStack(): ServiceUsersStack {
+  addServiceUsersStack(pinpoint: CfnApp): ServiceUsersStack {
     const envType = this.stackConfig.stage
     const stackName = `${envType}-service-users`
 
@@ -52,6 +54,7 @@ export class StackBuilder {
       this.app,
       stackName,
       {
+        pinpointProject: pinpoint,
         stackName,
         description:
           'Stack to manage the user service (e.g. user pool, user pool client) resources.',
@@ -190,6 +193,32 @@ export class StackBuilder {
         hostedZone,
         stackName,
         description: 'Stack to manage the app (e.g. cloudfront) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': resourceType,
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', resourceType)
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
+
+  addCoreMarketingStack(): CoreMarketingStack {
+    const envType = this.stackConfig.stage
+    const resourceType = 'core'
+    const stackName = `${envType}-core-marketing`
+
+    const stack = new CoreMarketingStack(
+      this.app,
+      stackName,
+      {
+        // certificate,
+        description: 'Stack to manage the marketing (e.g. pinpoint) resources.',
         env: this.stackConfig.env,
         tags: {
           'resource-type': resourceType,
