@@ -1,11 +1,11 @@
 <template>
-  <router-view />
+  <with-left-sidebar>
+    <ContentWithHeader>
+      <router-view />
+    </ContentWithHeader>
+  </with-left-sidebar>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'App',
-})
+<script setup lang="ts">
+import { ContentWithHeader, WithLeftSidebar } from '@/layouts'
 </script>

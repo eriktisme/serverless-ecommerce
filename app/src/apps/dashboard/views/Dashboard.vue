@@ -1,42 +1,26 @@
 <template>
-  <with-left-sidebar>
-    <ContentWithHeader>
-      Protected
+    Protected
 
-      <button @click="logout" type="button">Logout</button>
-      <button @click="openSidebar" type="button">Sidebar</button>
-    </ContentWithHeader>
-  </with-left-sidebar>
+    <button @click="logout" type="button">Logout</button>
+    <button @click="openSidebar" type="button">Sidebar</button>
 </template>
 
-<script lang="ts">
-import { ContentWithHeader, WithLeftSidebar } from '@/layouts'
+<script setup lang="ts">
 import { Auth } from 'aws-amplify'
-import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSidebarStore } from '@/stores/sidebar'
 
-export default defineComponent({
-  components: { ContentWithHeader, WithLeftSidebar },
-  setup() {
-    const { push } = useRouter()
+const { push } = useRouter()
 
-    const sidebarStore = useSidebarStore()
+const sidebarStore = useSidebarStore()
 
-    const openSidebar = () => {
-      sidebarStore.commit('toggle', true)
-    }
+const openSidebar = () => {
+  sidebarStore.commit('toggle', true)
+}
 
-    const logout = async () => {
-      await Auth.signOut()
+const logout = async () => {
+  await Auth.signOut()
 
-      await push('/login')
-    }
-
-    return {
-      logout,
-      openSidebar,
-    }
-  },
-})
+  await push('/login')
+}
 </script>
