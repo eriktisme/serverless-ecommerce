@@ -15,8 +15,9 @@ const stackBuilder = new StackBuilder(app, stackConfig)
 switch (stackConfig.stage) {
   case 'dev':
   case 'int': {
-    stackBuilder.addServiceUsersStack()
     stackBuilder.addCorePlatformStack()
+    const { pinpoint } = stackBuilder.addCoreMarketingStack()
+    stackBuilder.addServiceUsersStack(pinpoint)
     stackBuilder.addServiceProductsStack()
     stackBuilder.addServiceFrontendApiStack()
 

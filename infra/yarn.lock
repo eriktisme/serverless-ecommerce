@@ -334,6 +334,14 @@
     "@aws-cdk/core" "1.124.0"
     constructs "^3.3.69"
 
+"@aws-cdk/aws-pinpoint@^1.118.0":
+  version "1.124.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-pinpoint/-/aws-pinpoint-1.124.0.tgz#bb930398a694a393f8c0cc79c5001c0edde11dad"
+  integrity sha512-1RaWTdkZkpDsddKWAbBjVNQS/a663zBfcH6giV5WHm7Q6cgzqdhCRLGwkU4GLlThZvuo/3lVkNeZhVtVdVMQew==
+  dependencies:
+    "@aws-cdk/core" "1.124.0"
+    constructs "^3.3.69"
+
 "@aws-cdk/aws-route53-targets@^1.118.0":
   version "1.124.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-route53-targets/-/aws-route53-targets-1.124.0.tgz#fa1ddcce2af9c552574ab96d1af946ca717b9021"

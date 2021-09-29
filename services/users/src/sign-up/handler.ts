@@ -10,10 +10,12 @@ export function instances() {
   }
 }
 
+// TODO: Send analytical event to Amazon Pinpoint to trigger campaign (with welcome message)
+
 export async function consumer(event: any) {
   console.debug({
     message: 'Input event',
-    event,
+    event: JSON.stringify(event),
   })
 
   // Do not auto confirm users
