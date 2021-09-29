@@ -22,13 +22,6 @@
             v-model="loginForm.password"
             :required="true"
           />
-          <div class="flex justify-end w-full mb-4">
-            <router-link
-              to="/forgot-password"
-              class="hover:underline hover:text-indigo-600"
-              >Forgot Password?</router-link
-            >
-          </div>
           <Button type="submit" :block="true" :busy="busy">Login</Button>
         </CardBody>
       </form>
@@ -75,13 +68,7 @@ export default defineComponent({
           form.loginForm.password
         )
 
-        const groups =
-          user.getSignInUserSession().getIdToken().payload['cognito:groups'] ??
-          []
-
-        if (!groups.includes('admin')) {
-          throw new Error('Entered credentials not found')
-        }
+        console.log(user)
 
         await userStore.commit('user', user)
 
@@ -89,6 +76,14 @@ export default defineComponent({
           return await push({
             name: 'new-password',
           })
+        }
+
+        const groups =
+          user.getSignInUserSession().getIdToken().payload['cognito:groups'] ??
+          []
+
+        if (!groups.includes('admin')) {
+          throw new Error('Entered credentials not found')
         }
 
         await push('/dashboard')
