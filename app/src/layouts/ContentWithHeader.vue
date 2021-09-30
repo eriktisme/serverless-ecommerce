@@ -4,13 +4,15 @@ import SidebarBurger from './SidebarBurger.vue'
 </script>
 
 <template>
-  <main class="overflow-auto h-full">
-    <div class="flex flex-none items-center w-full">
+  <div class="bg-gray-100 overflow-auto h-full">
+    <header class="bg-white shadow">
       <SidebarBurger />
-    </div>
+    </header>
 
-    <div class="w-full">
-      <slot />
-    </div>
-  </main>
+    <main>
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <slot />
+      </div>
+    </main>
+  </div>
 </template>

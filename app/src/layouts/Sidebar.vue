@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UserCircleIcon, HomeIcon } from '@heroicons/vue/outline'
+import { UserCircleIcon, HomeIcon, TemplateIcon } from '@heroicons/vue/outline'
 
 defineProps({
   isOpen: Boolean,
@@ -19,36 +19,64 @@ defineProps({
 <template>
   <div class="sidebar" :class="[{ 'is-open': isOpen }]">
     <div
-      class="flex flex-col flex-none bg-wild-sand-500 text-black z-10"
+      class="flex flex-col flex-none bg-indigo-700 text-white z-10"
       style="width: 300px"
     >
       <div class="flex flex-1 flex-col items-baseline pt-8 px-4">
-        <button
-          type="button"
+        <router-link
+          to="/dashboard"
+          active-class="text-opacity-100"
           class="
-            flex flex-row
+            flex
+            flex-row
             items-center
             w-full
             p-2
             mb-2
             last:mb-0
             rounded
-            hover:bg-black hover:bg-opacity-10
+            text-white
+            hover:bg-black
+            hover:bg-opacity-10
             text-opacity-80
             hover:text-opacity-100
           "
         >
           <home-icon class="h-5 w-5 mr-3" />
           Dashboard
-        </button>
+        </router-link>
+        <router-link
+          to="/products"
+          class="
+            flex
+            flex-row
+            items-center
+            w-full
+            p-2
+            mb-2
+            last:mb-0
+            rounded
+            text-white
+            hover:bg-black
+            hover:bg-opacity-10
+            text-opacity-80
+            hover:text-opacity-100
+          "
+        >
+          <template-icon class="h-5 w-5 mr-3" />
+          Products
+        </router-link>
       </div>
       <div
         class="
-          flex flex-none flex-col
+          flex
+          flex-none
+          flex-col
           items-baseline
           p-4
-          bg-wild-sand-500
-          border-t border-wild-sand-600
+          bg-indigo-700
+          border-t
+          border-indigo-800
         "
       >
         <div class="flex flex-row items-center w-full p-2">
