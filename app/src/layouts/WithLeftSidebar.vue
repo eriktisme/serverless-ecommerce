@@ -20,6 +20,12 @@ const closeOverlay = () => commit('toggle', !open)
 .sidebar-is-open {
   transform: translateX(300px);
 }
+
+@screen lg {
+  .sidebar-is-open {
+    transform: translateX(0);
+  }
+}
 </style>
 
 <template>
