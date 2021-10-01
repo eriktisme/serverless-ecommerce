@@ -3,7 +3,7 @@ import { sidebarStore, sidebarStoreKey } from './stores/sidebar'
 import { userStore, userStoreKey } from './stores/user'
 import { createApp } from 'vue'
 import App from './App.vue'
-import './index.css'
+import './styles/index.css'
 
 import Amplify from 'aws-amplify'
 
