@@ -1,0 +1,5 @@
+{
+  "name": "@core-ui/labels",
+  "main": "index.ts",
+  "sideEffects": false
+}
