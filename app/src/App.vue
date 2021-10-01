@@ -1,11 +1,21 @@
 <template>
-  <with-left-sidebar>
-    <ContentWithHeader>
+  <template v-if="state.user">
+    <with-left-sidebar>
+      <content-with-header>
+        <router-view />
+      </content-with-header>
+    </with-left-sidebar>
+  </template>
+  <template v-else>
+    <content>
       <router-view />
-    </ContentWithHeader>
-  </with-left-sidebar>
+    </content>
+  </template>
 </template>
 
 <script setup lang="ts">
-import { ContentWithHeader, WithLeftSidebar } from '@/layouts'
+import { Content, ContentWithHeader, WithLeftSidebar } from '@/layouts'
+import { useUserStore } from '@/stores/user'
+
+const { state } = useUserStore()
 </script>

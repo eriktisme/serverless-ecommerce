@@ -1,0 +1,5 @@
+{
+  "name": "@core-ui/lists",
+  "module": "index.ts",
+  "sideEffects": false
+}

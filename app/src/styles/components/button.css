@@ -1,0 +1,7 @@
+.btn {
+  @apply group relative flex justify-center px-3 py-2 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 sm:text-sm;
+}
+
+.btn-indigo {
+  @apply text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500;
+}

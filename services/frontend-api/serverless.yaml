@@ -109,3 +109,4 @@ custom:
                 Resource:
                   - !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ssm:/${self:custom.project}/${self:provider.stage}/products/table/name}'
                   - !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/products/table/arn}'
+                  - !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/products/table/arn}/index/GS1PK'

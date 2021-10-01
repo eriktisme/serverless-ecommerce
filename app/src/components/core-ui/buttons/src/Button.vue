@@ -2,18 +2,7 @@
   <button
     :type="type"
     :disabled="busy"
-    class="
-      group
-      relative
-      flex
-      justify-center
-      px-3
-      py-2
-      border border-transparent
-      sm:text-sm
-      rounded-md
-      focus:outline-none focus:ring-2 focus:ring-offset-2
-    "
+    class="btn"
     :class="[style, { 'w-full': block, 'cursor-not-allowed': busy }]"
   >
     <slot />
@@ -35,8 +24,7 @@ export default defineComponent({
     },
     style: {
       type: String,
-      default:
-        'text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500',
+      default: 'btn-indigo',
     },
     type: {
       type: String,
