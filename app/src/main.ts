@@ -12,26 +12,14 @@ const defaultRegion = 'eu-west-1'
 const env = import.meta.env
 
 Amplify.configure({
-  aws_project_region: env.VITE_PROJECT_REGION || defaultRegion,
-  oauth: {},
-
+  aws_project_region: defaultRegion, // (required) - Region where Amazon Cognito project was created
+  aws_appsync_graphqlEndpoint: env.VITE_APPSYNC_GRAPHQL_ENDPOINT,
   aws_appsync_authenticationType: 'AMAZON_COGNITO_USER_POOLS',
-
-  API: {
-    region: env.VITE_APPSYNC_REGION || defaultRegion,
-    graphql_endpoint: env.VITE_APPSYNC_GRAPHQL_ENDPOINT,
-  },
-
-  Auth: {
-    // Amazon Cognito Region
-    region: env.VITE_COGNITO_REGION || defaultRegion,
-
-    // Amazon Cognito User Pool ID
-    userPoolId: env.VITE_COGNITO_USER_POOL_ID,
-
-    // Amazon Cognito Web Client ID (26-char alphanumeric string, App client secret needs to be disabled)
-    userPoolWebClientId: env.VITE_COGNITO_USER_POOL_WEB_CLIENT_ID,
-  },
+  aws_appsync_region: defaultRegion, // (required) - Region where Amazon Cognito project was created
+  aws_cognito_region: defaultRegion, // (required) - Region where Amazon Cognito project was created
+  aws_user_pools_id:  env.VITE_COGNITO_USER_POOL_ID, // (optional) -  Amazon Cognito User Pool ID
+  aws_user_pools_web_client_id: env.VITE_COGNITO_USER_POOL_WEB_CLIENT_ID, // (optional) - Amazon Cognito App Client ID (App client secret needs to be disabled)
+  aws_cognito_identity_pool_id: '', // (optional) - Amazon Cognito Identity Pool ID
 })
 
 const app = createApp(App)
