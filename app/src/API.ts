@@ -30,7 +30,7 @@ export type Product = {
   productId: string
   name: string
   price: number
-  category?: ProductCategory | null
+  category: ProductCategory
   status: ProductStatus
   tags?: Array<string | null> | null
   pictures?: Array<string | null> | null
@@ -49,6 +49,12 @@ export type ProductCategory = {
 export enum CategoryStatus {
   ACTIVE = 'ACTIVE',
   DRAFT = 'DRAFT',
+}
+
+export type PaginatedProductCategories = {
+  __typename: 'PaginatedProductCategories'
+  items: Array<ProductCategory>
+  nextToken?: string | null
 }
 
 export type CreateProductMutationVariables = {
@@ -85,6 +91,23 @@ export type GetProductsQuery = {
   }
 }
 
+export type GetProductCategoriesQueryVariables = {
+  nextToken?: string | null
+}
+
+export type GetProductCategoriesQuery = {
+  getProductCategories: {
+    __typename: 'PaginatedProductCategories'
+    items: Array<{
+      __typename: 'ProductCategory'
+      categoryId: string
+      name: string
+      status: CategoryStatus
+    }>
+    nextToken?: string | null
+  }
+}
+
 export type GetProductQueryVariables = {
   productId: string
 }
@@ -95,12 +118,12 @@ export type GetProductQuery = {
     productId: string
     name: string
     price: number
-    category?: {
+    category: {
       __typename: 'ProductCategory'
       categoryId: string
       name: string
       status: CategoryStatus
-    } | null
+    }
     status: ProductStatus
     tags?: Array<string | null> | null
     pictures?: Array<string | null> | null

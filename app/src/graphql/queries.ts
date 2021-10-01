@@ -9,11 +9,24 @@ export const getProducts = /* GraphQL */ `
         productId
         name
         price
+        status
         tags
         pictures
         createdAt
         updatedAt
         deletedAt
+      }
+      nextToken
+    }
+  }
+`
+export const getProductCategories = /* GraphQL */ `
+  query GetProductCategories($nextToken: String) {
+    getProductCategories(nextToken: $nextToken) {
+      items {
+        categoryId
+        name
+        status
       }
       nextToken
     }
