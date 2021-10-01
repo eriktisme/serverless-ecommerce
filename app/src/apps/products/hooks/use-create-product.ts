@@ -15,7 +15,7 @@ export function useCreateProduct() {
 
   const create = async () => {
     console.log('create product')
-    await API.graphql(graphqlOperation(createProduct, { product: state.form }))
+    await API.graphql(graphqlOperation(createProduct, { input: state.form }))
   }
 
   const statusOptions = [

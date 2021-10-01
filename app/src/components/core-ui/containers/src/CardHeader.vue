@@ -12,9 +12,9 @@ defineProps({
     class="flex items-center bg-gray-100 border border-gray-200 p-4"
     :class="[rounded]"
   >
-    <div class="flex-1 font-semibold text-lg">
+    <h1 class="flex-1 font-semibold text-lg">
       <slot />
-    </div>
+    </h1>
     <slot name="action"></slot>
   </div>
 </template>

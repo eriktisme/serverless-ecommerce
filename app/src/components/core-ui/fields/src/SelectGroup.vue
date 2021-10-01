@@ -7,6 +7,15 @@
       <select
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
+        class="
+          block
+          w-full
+          px-3
+          py-2
+          border border-gray-300
+          rounded-md
+          shadow-sm
+        "
       >
         <option v-if="placeholder" value="" disabled selected hidden>
           {{ placeholder }}

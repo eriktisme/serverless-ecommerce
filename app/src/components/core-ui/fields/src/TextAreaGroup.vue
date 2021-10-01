@@ -7,11 +7,8 @@
       <textarea
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-        :placeholder="placeholder"
-        :type="type"
         :tabindex="tabindex"
         :ref="ref"
-        :autocomplete="autocomplete"
         class="
           appearance-none
           focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
@@ -19,8 +16,7 @@
           w-full
           px-3
           py-2
-          border-gray-300
-          sm:text-sm
+          border border-gray-300
           rounded-md
           shadow-sm
         "
