@@ -1,13 +1,14 @@
+<script setup lang="ts">
+defineProps({
+  rounded: {
+    type: String,
+    default: 'rounded-sm',
+  },
+})
+</script>
+
 <template>
-  <div class="bg-white border border-gray-200 rounded-sm">
+  <div class="bg-white border border-gray-200" :class="[rounded]">
     <slot />
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  //
-})
-</script>
