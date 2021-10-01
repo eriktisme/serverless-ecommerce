@@ -17,9 +17,13 @@ describe('Lib Web Distribution', () => {
     stack = new Stack(app)
     library = new LibWebDistribution(stack, mockStackName, {
       domain: 'scaling.test',
-      hostedZone: new PublicHostedZone(new Stack(app, 'FakeConstructApp2'), 'FakeConstruct', {
-        zoneName: 'scaling.test',
-      }),
+      hostedZone: new PublicHostedZone(
+        new Stack(app, 'FakeConstructApp2'),
+        'FakeConstruct',
+        {
+          zoneName: 'scaling.test',
+        }
+      ),
       ssr: false,
     })
   })

@@ -25,10 +25,9 @@ defineProps({
       <div class="flex flex-1 flex-col items-baseline pt-8 px-4">
         <router-link
           to="/dashboard"
-          active-class="text-opacity-100"
+          exact-active-class="text-opacity-100 bg-black bg-opacity-10"
           class="
-            flex
-            flex-row
+            flex flex-row
             items-center
             w-full
             p-2
@@ -36,8 +35,7 @@ defineProps({
             last:mb-0
             rounded
             text-white
-            hover:bg-black
-            hover:bg-opacity-10
+            hover:bg-black hover:bg-opacity-10
             text-opacity-80
             hover:text-opacity-100
           "
@@ -47,9 +45,9 @@ defineProps({
         </router-link>
         <router-link
           to="/products"
+          exact-active-class="text-opacity-100 bg-black bg-opacity-10"
           class="
-            flex
-            flex-row
+            flex flex-row
             items-center
             w-full
             p-2
@@ -57,7 +55,6 @@ defineProps({
             last:mb-0
             rounded
             text-white
-            hover:bg-black
             hover:bg-opacity-10
             text-opacity-80
             hover:text-opacity-100
@@ -69,14 +66,11 @@ defineProps({
       </div>
       <div
         class="
-          flex
-          flex-none
-          flex-col
+          flex flex-none flex-col
           items-baseline
           p-4
           bg-indigo-700
-          border-t
-          border-indigo-800
+          border-t border-indigo-800
         "
       >
         <div class="flex flex-row items-center w-full p-2">
