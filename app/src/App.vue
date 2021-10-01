@@ -15,9 +15,7 @@
 
 <script setup lang="ts">
 import { Content, ContentWithHeader, WithLeftSidebar } from '@/layouts'
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from '@/stores/user'
 
 const { state } = useUserStore()
-
-console.log(state.user)
 </script>

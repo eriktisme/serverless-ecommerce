@@ -9,7 +9,6 @@ export const getProducts = /* GraphQL */ `
         productId
         name
         price
-        status
         tags
         pictures
         createdAt
