@@ -1,8 +1,8 @@
 <template>
   <WelcomePage>
-    <Card>
+    <Card rounded="rounded-lg" class="mt-8 space-y-6">
       <form @submit.prevent="confirm">
-        <CardBody>
+        <CardBody spacing="p-10" class="shadow-sm">
           <template v-if="error">
             {{ error }}
           </template>
