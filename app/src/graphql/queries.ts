@@ -8,9 +8,10 @@ export const getProducts = /* GraphQL */ `
       items {
         productId
         name
+        slug
+        reference
         price
         status
-        tags
         pictures
         createdAt
         updatedAt
@@ -26,6 +27,8 @@ export const getProductCategories = /* GraphQL */ `
       items {
         categoryId
         name
+        slug
+        description
         status
       }
       nextToken
@@ -37,15 +40,22 @@ export const getProduct = /* GraphQL */ `
     getProduct(productId: $productId) {
       productId
       name
+      slug
+      reference
       price
       category {
         categoryId
         name
+        slug
+        description
         status
       }
       status
-      tags
       pictures
+      properties {
+        name
+        values
+      }
       createdAt
       updatedAt
       deletedAt

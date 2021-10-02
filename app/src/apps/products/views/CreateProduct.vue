@@ -13,7 +13,10 @@ import {
 } from '@/components/core-ui/fields'
 import { Button } from '@/components/core-ui/buttons'
 
-const { form, create, statusOptions } = useCreateProduct()
+const { form, create, statusOptions, categories, getProductCategories } =
+  useCreateProduct()
+
+getProductCategories()
 </script>
 
 <template>
@@ -37,6 +40,16 @@ const { form, create, statusOptions } = useCreateProduct()
           label="Product status"
           v-model="form.status"
           :options="statusOptions"
+        />
+        <SelectGroup
+          label="Product category"
+          v-model="form.category"
+          :options="
+            categories.map((category) => ({
+              key: category.categoryId,
+              value: category.name,
+            }))
+          "
         />
       </CardBody>
       <CardFooter>

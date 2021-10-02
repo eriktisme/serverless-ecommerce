@@ -10,7 +10,10 @@ enum CategoryStatus {
 type ProductCategory {
   categoryId: ID!
   name: String!
+  slug: String!
+  description: String
   status: CategoryStatus!
+  children: [ProductCategory]
 }
 
 enum ProductStatus {
@@ -18,20 +21,22 @@ enum ProductStatus {
   DRAFT
 }
 
+type Property {
+  name: String
+  values: [String]
+}
+
 type Product {
   productId: ID!
   name: String!
+  slug: String!
+  reference: String
   price: Int!
-  category: ProductCategory
+  category: ProductCategory!
   status: ProductStatus!
-  tags: [String]
   pictures: [String]
+  properties: [Property]
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
   deletedAt: AWSDateTime
-}
-
-type PaginatedProducts {
-  items: [Product!]!
-  nextToken: String
 }

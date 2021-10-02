@@ -10,14 +10,9 @@
     </CardHeader>
     <CardBody spacing="p-0">
       <Table
-        :columns="['name', 'price', 'status', 'tags', 'actions']"
+        :columns="['name', 'price', 'status', 'actions']"
         :items="products"
       >
-        <template #column[tags]="data">
-          <BlueLabel v-for="tag in data.data.tags" class="mr-2 last:mr-0">{{
-            tag
-          }}</BlueLabel>
-        </template>
         <template #column[status]="data">
           <GreenLabel v-if="data.data.status === ProductStatus.ACTIVE">
             Active

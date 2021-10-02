@@ -2,11 +2,25 @@ input ProductInput {
   name: String!
   status: ProductStatus!
   price: Int!
+  category: ID!
   description: String!
+}
+
+type PaginatedProducts {
+  items: [Product!]!
+  nextToken: String
+}
+
+type PaginatedProductCategories {
+  items: [ProductCategory!]!
+  nextToken: String
 }
 
 type Query {
   getProducts(nextToken: String): PaginatedProducts!
+    @aws_cognito_user_pools(cognito_groups: ["admin"])
+
+  getProductCategories(nextToken: String): PaginatedProductCategories!
     @aws_cognito_user_pools(cognito_groups: ["admin"])
 
   getProduct(productId: ID!): Product

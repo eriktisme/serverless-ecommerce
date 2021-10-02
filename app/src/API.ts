@@ -6,6 +6,7 @@ export type ProductInput = {
   name: string
   status: ProductStatus
   price: number
+  category: string
   description: string
 }
 
@@ -29,11 +30,13 @@ export type Product = {
   __typename: 'Product'
   productId: string
   name: string
+  slug: string
+  reference?: string | null
   price: number
   category: ProductCategory
   status: ProductStatus
-  tags?: Array<string | null> | null
   pictures?: Array<string | null> | null
+  properties?: Array<Property | null> | null
   createdAt?: string | null
   updatedAt?: string | null
   deletedAt?: string | null
@@ -43,12 +46,21 @@ export type ProductCategory = {
   __typename: 'ProductCategory'
   categoryId: string
   name: string
+  slug: string
+  description?: string | null
   status: CategoryStatus
+  children?: Array<ProductCategory | null> | null
 }
 
 export enum CategoryStatus {
   ACTIVE = 'ACTIVE',
   DRAFT = 'DRAFT',
+}
+
+export type Property = {
+  __typename: 'Property'
+  name?: string | null
+  values?: Array<string | null> | null
 }
 
 export type PaginatedProductCategories = {
@@ -79,9 +91,10 @@ export type GetProductsQuery = {
       __typename: 'Product'
       productId: string
       name: string
+      slug: string
+      reference?: string | null
       price: number
       status: ProductStatus
-      tags?: Array<string | null> | null
       pictures?: Array<string | null> | null
       createdAt?: string | null
       updatedAt?: string | null
@@ -102,6 +115,8 @@ export type GetProductCategoriesQuery = {
       __typename: 'ProductCategory'
       categoryId: string
       name: string
+      slug: string
+      description?: string | null
       status: CategoryStatus
     }>
     nextToken?: string | null
@@ -117,16 +132,24 @@ export type GetProductQuery = {
     __typename: 'Product'
     productId: string
     name: string
+    slug: string
+    reference?: string | null
     price: number
     category: {
       __typename: 'ProductCategory'
       categoryId: string
       name: string
+      slug: string
+      description?: string | null
       status: CategoryStatus
     }
     status: ProductStatus
-    tags?: Array<string | null> | null
     pictures?: Array<string | null> | null
+    properties?: Array<{
+      __typename: 'Property'
+      name?: string | null
+      values?: Array<string | null> | null
+    } | null> | null
     createdAt?: string | null
     updatedAt?: string | null
     deletedAt?: string | null

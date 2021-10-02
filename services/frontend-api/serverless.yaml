@@ -1,8 +1,8 @@
 # Serverless.yml Reference
 # https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
-
 frameworkVersion: '2'
 service: ${self:custom.service.name}
+variablesResolutionMode: 20210326
 
 plugins:
   - serverless-appsync-plugin
@@ -85,6 +85,9 @@ custom:
         - field: category
           dataSource: products
           type: Product
+        - field: getProductCategories
+          dataSource: products
+          type: Query
         - field: getProduct
           dataSource: products
           type: Query
@@ -107,6 +110,5 @@ custom:
                   - 'dynamodb:PutItem'
                   - 'dynamodb:UpdateItem'
                 Resource:
-                  - !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ssm:/${self:custom.project}/${self:provider.stage}/products/table/name}'
                   - !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/products/table/arn}'
                   - !Sub '${ssm:/${self:custom.project}/${self:provider.stage}/products/table/arn}/index/GS1PK'
