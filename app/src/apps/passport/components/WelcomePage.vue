@@ -6,8 +6,7 @@
       items-center
       justify-center
       bg-gray-50
-      overflow-x-hidden
-      overflow-y-visible
+      overflow-x-hidden overflow-y-visible
       py-12
       px-4
       sm:px-6
