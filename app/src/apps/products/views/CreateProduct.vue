@@ -7,8 +7,8 @@ import {
 } from '@/components/core-ui/containers'
 import { useCreateProduct } from '../hooks'
 import {
+  CustomSelectGroup,
   InputGroup,
-  SelectGroup,
   TextAreaGroup,
 } from '@/components/core-ui/fields'
 import { Button } from '@/components/core-ui/buttons'
@@ -36,12 +36,12 @@ getProductCategories()
           v-model="form.description"
           :required="true"
         />
-        <SelectGroup
+        <CustomSelectGroup
           label="Product status"
           v-model="form.status"
           :options="statusOptions"
         />
-        <SelectGroup
+        <CustomSelectGroup
           label="Product category"
           v-model="form.category"
           :options="

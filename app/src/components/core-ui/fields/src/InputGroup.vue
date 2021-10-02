@@ -14,7 +14,6 @@
         :autocomplete="autocomplete"
         class="
           appearance-none
-          focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
           block
           w-full
           px-3
@@ -22,6 +21,8 @@
           border border-gray-300
           rounded-md
           shadow-sm
+          cursor-default
+          focus:outline-none focus:ring-2 focus:ring-offset-2
         "
       />
     </span>
