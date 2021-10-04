@@ -15,7 +15,7 @@ import {
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue'
-import { MenuIcon, XIcon } from '@heroicons/vue/solid'
+import { MenuIcon, XIcon, SearchIcon, ShoppingBagIcon } from '@heroicons/vue/solid'
 
 const open = ref(false)
 
@@ -270,6 +270,21 @@ const navigation = {
             <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
             <a class="font-medium text-gray-700 hover:text-gray-800">
               Create account
+            </a>
+          </div>
+
+          <div class="flex lg:ml-6">
+            <a href="#" class="p-2 text-gray-400 hover:text-gray-500">
+              <span class="sr-only">Search</span>
+              <SearchIcon class="w-6 h-6" aria-hidden="true" />
+            </a>
+          </div>
+
+          <div class="ml-4 flow-root lg:ml-6">
+            <a href="#" class="group -m-2 p-2 flex items-center">
+              <ShoppingBagIcon class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+              <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+              <span class="sr-only">items in cart, view bag</span>
             </a>
           </div>
         </div>
