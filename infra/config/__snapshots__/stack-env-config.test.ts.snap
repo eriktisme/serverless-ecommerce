@@ -9,6 +9,24 @@ Object {
     "account": "096007086684",
     "region": "eu-west-1",
   },
+  "network": Object {
+    "permittedIps": Array [
+      Object {
+        "ipAddress": "84.126.215.36/32",
+        "name": "Home Office",
+      },
+    ],
+    "vpc": Object {
+      "cidr": "10.0.0.0/16",
+      "subnets": Array [
+        Object {
+          "cidrMask": 24,
+          "name": "public",
+          "subnetType": "Public",
+        },
+      ],
+    },
+  },
   "project": "serverless-ecommerce",
   "stage": "dev",
 }
@@ -23,6 +41,12 @@ Object {
     "account": "096007086684",
     "region": "eu-west-1",
   },
+  "network": Object {
+    "vpc": Object {
+      "cidr": "10.20.0.0/16",
+      "subnets": Array [],
+    },
+  },
   "project": "serverless-ecommerce",
   "stage": "int",
 }
@@ -36,6 +60,13 @@ Object {
   "env": Object {
     "account": "096007086684",
     "region": "eu-west-1",
+  },
+  "network": Object {
+    "vpc": Object {
+      "cidr": "10.40.0.0/16",
+      "maxAzs": 2,
+      "subnets": Array [],
+    },
   },
   "project": "serverless-ecommerce",
   "stage": "prod",

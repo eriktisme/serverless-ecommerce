@@ -18,11 +18,11 @@
     "cdk": "cdk"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.118.0",
+    "@aws-cdk/assert": "^1.125.0",
     "@types/jest": "^26.0.10",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
-    "aws-cdk": "^1.118.0",
+    "aws-cdk": "^1.125.0",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -33,20 +33,22 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@aws-cdk/aws-certificatemanager": "^1.118.0",
-    "@aws-cdk/aws-cloudfront": "^1.118.0",
-    "@aws-cdk/aws-cognito": "^1.118.0",
-    "@aws-cdk/aws-dynamodb": "^1.118.0",
-    "@aws-cdk/aws-ec2": "^1.118.0",
-    "@aws-cdk/aws-events": "^1.118.0",
-    "@aws-cdk/aws-iam": "^1.118.0",
-    "@aws-cdk/aws-lambda": "^1.118.0",
-    "@aws-cdk/aws-lambda-nodejs": "^1.118.0",
-    "@aws-cdk/aws-pinpoint": "^1.118.0",
-    "@aws-cdk/aws-route53": "^1.118.0",
-    "@aws-cdk/aws-route53-targets": "^1.118.0",
-    "@aws-cdk/aws-s3": "^1.118.0",
-    "@aws-cdk/aws-ssm": "^1.118.0",
-    "@aws-cdk/core": "^1.118.0"
+    "@aws-cdk/aws-certificatemanager": "^1.125.0",
+    "@aws-cdk/aws-cloudfront": "^1.125.0",
+    "@aws-cdk/aws-cognito": "^1.125.0",
+    "@aws-cdk/aws-dynamodb": "^1.125.0",
+    "@aws-cdk/aws-ec2": "^1.125.0",
+    "@aws-cdk/aws-events": "^1.125.0",
+    "@aws-cdk/aws-iam": "^1.125.0",
+    "@aws-cdk/aws-lambda": "^1.125.0",
+    "@aws-cdk/aws-lambda-nodejs": "^1.125.0",
+    "@aws-cdk/aws-logs": "^1.125.0",
+    "@aws-cdk/aws-pinpoint": "^1.125.0",
+    "@aws-cdk/aws-route53": "^1.125.0",
+    "@aws-cdk/aws-route53-targets": "^1.125.0",
+    "@aws-cdk/aws-s3": "^1.125.0",
+    "@aws-cdk/aws-s3-assets": "^1.125.0",
+    "@aws-cdk/aws-ssm": "^1.125.0",
+    "@aws-cdk/core": "^1.125.0"
   }
 }

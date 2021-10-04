@@ -4,6 +4,7 @@ import { StackConfiguration } from '../config'
 import { AppAppStack } from '../lib/app-app'
 import { AppWebStack } from '../lib/app-web'
 import { CoreDomainStack } from '../lib/core-domain'
+import { CoreNetworkStack } from '../lib/core-network'
 import { CorePlatformStack } from '../lib/core-platform'
 import { ServiceFrontendApiStack } from '../lib/service-frontend-api'
 import { ServiceProductsStack } from '../lib/service-products'
@@ -18,6 +19,60 @@ export class StackBuilder {
   constructor(scope: App, stackConfig: StackConfiguration) {
     this.app = scope
     this.stackConfig = stackConfig
+  }
+
+  addCoreDomainStack(): CoreDomainStack {
+    const envType = this.stackConfig.stage
+    const resourceType = 'core'
+    const stackName = `${envType}-core-domain`
+
+    const stack = new CoreDomainStack(
+      this.app,
+      stackName,
+      {
+        stackName,
+        description:
+          'Stack to manage the core domain (e.g. public hosted zone, certificate) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': resourceType,
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', resourceType)
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
+
+  addCoreNetworkStack(): CoreNetworkStack {
+    const envType = this.stackConfig.stage
+    const resourceType = 'core'
+    const stackName = `${envType}-core-network`
+
+    const stack = new CoreNetworkStack(
+      this.app,
+      stackName,
+      {
+        stackName,
+        description:
+          'Stack to manage the core network (e.g. vpc, subnets, bastion) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': resourceType,
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', resourceType)
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
   }
 
   addCorePlatformStack(): CorePlatformStack {
@@ -41,6 +96,32 @@ export class StackBuilder {
     )
 
     Tags.of(stack).add('resource-type', 'core')
+    Tags.of(stack).add('environment-type', envType)
+
+    return stack
+  }
+
+  addCoreMarketingStack(): CoreMarketingStack {
+    const envType = this.stackConfig.stage
+    const resourceType = 'core'
+    const stackName = `${envType}-core-marketing`
+
+    const stack = new CoreMarketingStack(
+      this.app,
+      stackName,
+      {
+        // certificate,
+        description: 'Stack to manage the marketing (e.g. pinpoint) resources.',
+        env: this.stackConfig.env,
+        tags: {
+          'resource-type': resourceType,
+          'environment-type': envType,
+        },
+      },
+      this.stackConfig
+    )
+
+    Tags.of(stack).add('resource-type', resourceType)
     Tags.of(stack).add('environment-type', envType)
 
     return stack
@@ -119,33 +200,6 @@ export class StackBuilder {
     return stack
   }
 
-  addCoreDomainStack(): CoreDomainStack {
-    const envType = this.stackConfig.stage
-    const resourceType = 'core'
-    const stackName = `${envType}-core-domain`
-
-    const stack = new CoreDomainStack(
-      this.app,
-      stackName,
-      {
-        stackName,
-        description:
-          'Stack to manage the core domain (e.g. public hosted zone, certificate) resources.',
-        env: this.stackConfig.env,
-        tags: {
-          'resource-type': resourceType,
-          'environment-type': envType,
-        },
-      },
-      this.stackConfig
-    )
-
-    Tags.of(stack).add('resource-type', resourceType)
-    Tags.of(stack).add('environment-type', envType)
-
-    return stack
-  }
-
   addAppWebStack(
     // certificate: ICertificate,
     hostedZone: IHostedZone
@@ -193,32 +247,6 @@ export class StackBuilder {
         hostedZone,
         stackName,
         description: 'Stack to manage the app (e.g. cloudfront) resources.',
-        env: this.stackConfig.env,
-        tags: {
-          'resource-type': resourceType,
-          'environment-type': envType,
-        },
-      },
-      this.stackConfig
-    )
-
-    Tags.of(stack).add('resource-type', resourceType)
-    Tags.of(stack).add('environment-type', envType)
-
-    return stack
-  }
-
-  addCoreMarketingStack(): CoreMarketingStack {
-    const envType = this.stackConfig.stage
-    const resourceType = 'core'
-    const stackName = `${envType}-core-marketing`
-
-    const stack = new CoreMarketingStack(
-      this.app,
-      stackName,
-      {
-        // certificate,
-        description: 'Stack to manage the marketing (e.g. pinpoint) resources.',
         env: this.stackConfig.env,
         tags: {
           'resource-type': resourceType,

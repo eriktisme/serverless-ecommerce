@@ -5,3 +5,4 @@ dist
 **/.webpackCache/*
 **/.serverless/*
 notes.txt
+*.pub

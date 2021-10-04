@@ -7,6 +7,7 @@ export const ProdConfig: StackConfiguration = {
     account: '096007086684',
     region: 'eu-west-1',
   },
+  network: { vpc: { cidr: '10.40.0.0/16', maxAzs: 2, subnets: [] } },
   domain: {
     domain: 'scaling.cloud',
   },

@@ -8,5 +8,6 @@ export const IntConfig: StackConfiguration = {
     account: '096007086684',
     region: 'eu-west-1',
   },
+  network: { vpc: { cidr: '10.20.0.0/16', subnets: [] } },
   domain: ProdConfig.domain,
 }
