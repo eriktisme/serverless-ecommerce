@@ -1,9 +1,14 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { routes as dashboardRoutes } from '@/apps/dashboard'
 import { routes as passportRoutes } from '@/apps/passport'
+import { routes as storefrontRoutes } from '@/apps/storefront'
 import { userStore } from '@/stores/user'
 
-const routes: RouteRecordRaw[] = [...dashboardRoutes, ...passportRoutes]
+const routes: RouteRecordRaw[] = [
+  ...dashboardRoutes,
+  ...passportRoutes,
+  ...storefrontRoutes,
+]
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -18,30 +23,11 @@ router.beforeEach(async (to, _, next) => {
 
   await userStore.dispatch('fetchUser')
 
-  // Path / and logged in
-  if (to.path === '/' && userStore.state.authorized) {
-    return next('/dashboard')
-  }
-
-  // Path / and not logged in
-  if (to.path === '/' && !userStore.state.authorized) {
-    return next('/login')
-  }
-
   if (
     !to.matched.some((record) => record.meta.public) &&
     !userStore.state.authorized
   ) {
     return next('/login')
-  }
-
-  if (
-    to.matched.some((record) => record.meta.public && record.name !== 'home') &&
-    userStore.state.authorized
-  ) {
-    return next({
-      name: 'dashboard',
-    })
   }
 
   next()
