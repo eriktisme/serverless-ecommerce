@@ -86,7 +86,7 @@ export default defineComponent({
           password: form.registerForm.password,
           attributes: {
             email: form.registerForm.email,
-            name: form.registerForm.first_name,
+            given_name: form.registerForm.first_name,
             family_name: form.registerForm.last_name,
           },
           validationData: [],

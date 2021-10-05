@@ -1,11 +1,9 @@
-<template>
-  <router-view />
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'App',
-})
+<script setup lang="ts">
+import ContentWithHeader from '@/layouts/ContentWithHeader.vue'
 </script>
+
+<template>
+  <content-with-header>
+    <router-view />
+  </content-with-header>
+</template>

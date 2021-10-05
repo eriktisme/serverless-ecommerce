@@ -1,38 +1,42 @@
 <template>
   <WelcomePage>
-      <div>
-        <h2 class="text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-      </div>
-      <Card rounded="rounded-lg" class="mt-8 space-y-6">
-        <form @submit.prevent="login">
-          <CardBody spacing="p-10" class="shadow-sm">
-            <template v-if="error">
-              {{ error }}
-            </template>
-            <InputGroup
-              type="email"
-              label="Email address"
-              placeholder="john.doe@example.org"
-              v-model="loginForm.email"
-              ref="email"
-              :required="true"
-            />
-            <InputGroup
-              type="password"
-              label="Password"
-              placeholder="secret"
-              v-model="loginForm.password"
-              :required="true"
-            />
-            <Button type="submit" :block="true" :busy="busy" class="group">
-              <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" />
-              </span>
-              Login
-            </Button>
-          </CardBody>
-        </form>
-      </Card>
+    <div>
+      <h2 class="text-center text-3xl font-extrabold text-gray-900">
+        Sign in to your account
+      </h2>
+    </div>
+    <Card rounded="rounded-lg" class="mt-8 space-y-6">
+      <form @submit.prevent="login">
+        <CardBody spacing="p-10" class="shadow-sm">
+          <template v-if="error">
+            {{ error }}
+          </template>
+          <InputGroup
+            type="email"
+            label="Email address"
+            placeholder="john.doe@example.org"
+            v-model="loginForm.email"
+            ref="email"
+            :required="true"
+          />
+          <InputGroup
+            type="password"
+            label="Password"
+            placeholder="secret"
+            v-model="loginForm.password"
+            :required="true"
+          />
+          <Button type="submit" :block="true" :busy="busy" class="group">
+            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+              <LockClosedIcon
+                class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+              />
+            </span>
+            Login
+          </Button>
+        </CardBody>
+      </form>
+    </Card>
   </WelcomePage>
 </template>
 
@@ -48,7 +52,14 @@ import WelcomePage from '../components/WelcomePage.vue'
 import { LockClosedIcon } from '@heroicons/vue/solid'
 
 export default defineComponent({
-  components: { Button, Card, CardBody, WelcomePage, InputGroup, LockClosedIcon },
+  components: {
+    Button,
+    Card,
+    CardBody,
+    WelcomePage,
+    InputGroup,
+    LockClosedIcon,
+  },
   mounted() {
     this.$nextTick(() => {
       ;(this.$refs.email as any).$el.focus()
