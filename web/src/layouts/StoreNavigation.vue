@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import {
   Dialog,
   DialogOverlay,
@@ -14,8 +14,21 @@ import {
   TabPanels,
   TransitionChild,
   TransitionRoot,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
 } from '@headlessui/vue'
-import { MenuIcon, XIcon, SearchIcon, ShoppingBagIcon } from '@heroicons/vue/solid'
+import {
+  MenuIcon,
+  XIcon,
+  SearchIcon,
+  ShoppingBagIcon,
+} from '@heroicons/vue/solid'
+import { UserIcon } from '@heroicons/vue/outline'
+import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
+import { Auth } from 'aws-amplify'
 
 const open = ref(false)
 
@@ -88,6 +101,18 @@ const navigation = {
     { name: 'Order status', href: '#' },
     { name: 'Customer service', href: '#' },
   ],
+}
+
+const userStore = useUserStore()
+
+const isUserLoggedIn = computed(() => userStore.state.authorized)
+
+const { push } = useRouter()
+
+const logout = async () => {
+  await Auth.signOut()
+
+  await push('/login')
 }
 </script>
 
@@ -263,27 +288,127 @@ const navigation = {
         </PopoverGroup>
 
         <div class="ml-auto flex items-center">
-          <div class="flex flex-1 items-center justify-end space-x-6">
-            <a class="font-medium text-gray-700 hover:text-gray-800">
-              Sign in
-            </a>
-            <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
-            <a class="font-medium text-gray-700 hover:text-gray-800">
-              Create account
-            </a>
-          </div>
-
-          <div class="flex lg:ml-6">
+          <div class="flex">
             <a href="#" class="p-2 text-gray-400 hover:text-gray-500">
               <span class="sr-only">Search</span>
               <SearchIcon class="w-6 h-6" aria-hidden="true" />
             </a>
           </div>
 
+          <div
+            v-if="!isUserLoggedIn"
+            class="ml-4 lg:ml-6 flex flex-1 items-center justify-end space-x-6"
+          >
+            <router-link
+              :to="{ name: 'login' }"
+              class="font-medium text-gray-700 hover:text-gray-800"
+            >
+              Sign in
+            </router-link>
+            <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
+            <router-link
+              :to="{ name: 'register' }"
+              class="font-medium text-gray-700 hover:text-gray-800"
+            >
+              Create account
+            </router-link>
+          </div>
+
+          <Menu v-if="isUserLoggedIn" as="div" class="relative ml-4">
+            <div>
+              <MenuButton
+                class="flex items-center p-2 text-gray-700 hover:text-gray-800"
+              >
+                <span class="sr-only">Profile</span>
+                <UserIcon class="w-6 h-6" aria-hidden="true" />
+              </MenuButton>
+            </div>
+
+            <transition
+              enter-active-class="transition ease-out duration-100"
+              enter-from-class="transform opacity-0 scale-95"
+              enter-to-class="transform opacity-100 scale-100"
+              leave-active-class="transition ease-in duration-75"
+              leave-from-class="transform opacity-100 scale-100"
+              leave-to-class="transform opacity-0 scale-95"
+            >
+              <MenuItems
+                class="
+                  origin-top-right
+                  absolute
+                  right-0
+                  mt-2
+                  w-56
+                  rounded-md
+                  shadow-lg
+                  bg-white
+                  ring-1 ring-black ring-opacity-5
+                  focus:outline-none
+                "
+              >
+                <div class="py-1">
+                  <MenuItem v-slot="{ active }">
+                    <a
+                      href="#"
+                      :class="[
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                        'block px-4 py-2 text-sm',
+                      ]"
+                      >Account settings</a
+                    >
+                  </MenuItem>
+                  <MenuItem v-slot="{ active }">
+                    <a
+                      href="#"
+                      :class="[
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                        'block px-4 py-2 text-sm',
+                      ]"
+                      >Orders</a
+                    >
+                  </MenuItem>
+                  <form @submit.prevent="logout">
+                    <MenuItem v-slot="{ active }">
+                      <button
+                        type="submit"
+                        :class="[
+                          active
+                            ? 'bg-gray-100 text-gray-900'
+                            : 'text-gray-700',
+                          'block w-full text-left px-4 py-2 text-sm',
+                        ]"
+                      >
+                        Sign out
+                      </button>
+                    </MenuItem>
+                  </form>
+                </div>
+              </MenuItems>
+            </transition>
+          </Menu>
+
           <div class="ml-4 flow-root lg:ml-6">
             <a href="#" class="group -m-2 p-2 flex items-center">
-              <ShoppingBagIcon class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-              <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+              <ShoppingBagIcon
+                class="
+                  flex-shrink-0
+                  h-6
+                  w-6
+                  text-gray-400
+                  group-hover:text-gray-500
+                "
+                aria-hidden="true"
+              />
+              <span
+                class="
+                  ml-2
+                  text-sm
+                  font-medium
+                  text-gray-700
+                  group-hover:text-gray-800
+                "
+                >0</span
+              >
               <span class="sr-only">items in cart, view bag</span>
             </a>
           </div>
